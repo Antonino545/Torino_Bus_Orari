@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify , render_template
 import gttorari
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
 @app.route("/")
 def hello():
-    return "Welcome in gtt orari sito in testing!"
+    return render_template('index.html')
 
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
