@@ -1,0 +1,1 @@
+http://aperto.comune.torino.it/dataset/feed-gtfs-trasporti-gtt indirizzo per database stop
