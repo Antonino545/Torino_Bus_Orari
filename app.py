@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 import gttorari
 
-
 app = Flask(__name__)
 
 if __name__ == '__main__':
@@ -10,7 +9,7 @@ if __name__ == '__main__':
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Welcome in gtt orari sito in testing!"
 
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
@@ -23,7 +22,6 @@ def get_fermata_line(fermata, line):
     return gttorari.printout(gttorari.gttorari_stop_line(fermata, line))
 
 
-
 @app.route('/flutter/fermata/<int:fermata>/json', methods=['GET'])
 def get_fermata_json(fermata):
     return jsonify(gttorari.gttorari_stop(fermata))
@@ -32,5 +30,3 @@ def get_fermata_json(fermata):
 @app.route('/flutter/fermata/<int:fermata>/<int:line>/json', methods=['GET'])
 def get_fermata_line_json(fermata, line):
     return jsonify(gttorari.gttorari_stop_line(fermata, line))
-
-
