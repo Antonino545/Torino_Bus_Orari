@@ -14,12 +14,15 @@ def hello():
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_fermata(fermata):
-    return gttorari.printout(gttorari.gttorari_stop(fermata))
+    string = "I passaggi per la fermata " + str(fermata) + " sono: <br>"
+    return string + gttorari.printout(gttorari.gttorari_stop(fermata))
 
 
 @app.route('/fermata/<int:fermata>/<int:line>', methods=['GET'])
 def get_fermata_line(fermata, line):
-    return gttorari.printout(gttorari.gttorari_stop_line(fermata, line))
+    string = "i passaggi per la fermata " + str(fermata) + " sono: <br>"
+
+    return string + gttorari.printout(gttorari.gttorari_stop_line(fermata, line))
 
 
 @app.route('/flutter/fermata/<int:fermata>/json', methods=['GET'])
