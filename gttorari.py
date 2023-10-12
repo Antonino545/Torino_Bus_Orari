@@ -12,8 +12,8 @@ def jsonout(data):
     if data is None:
         print("non ci sono dati di passaggio per questa fermata o non è stata inserita una fermata valida")
     else:
-        for bus_line, direction, pas in data:
-            print(json.dumps({"linea": bus_line, "direzione": direction, "passaggi": pas}, indent=4))
+        for bus_line, direction, pas ,nextpass in data:
+            print(json.dumps({"linea": bus_line, "direzione": direction, "passaggi": pas,"nextpass":nextpass}, indent=4))
 
 
 def printout(data):
