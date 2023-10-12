@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="fix name jsonout">
-      <change afterPath="$PROJECT_DIR$/templates/whoare.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gttorari.py" beforeDir="false" afterPath="$PROJECT_DIR$/gttorari.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/whoare.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/whoare.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +76,7 @@
       <workItem from="1697130139169" duration="198000" />
       <workItem from="1697130514439" duration="428000" />
       <workItem from="1697131289466" duration="488000" />
+      <workItem from="1697134114322" duration="168000" />
     </task>
     <task id="LOCAL-00001" summary="miscellaneous fix">
       <option name="closed" value="true" />
@@ -123,6 +123,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="fix name jsonout" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Gtt_site$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1697131752561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Gtt_site$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1697134211848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
