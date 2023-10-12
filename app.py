@@ -11,7 +11,13 @@ if __name__ == '__main__':
 def hello():
     return render_template('index.html')
 
+@app.route('/orari_fermata')
+def orari_fermata():
+    return "Orari fermata"
 
+@app.route('/chi_sono')
+def chi_sono():
+    return render_template('whoare.html')
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_fermata(fermata):
     string = "I passaggi per la fermata " + str(fermata) + " sono: <br>"
