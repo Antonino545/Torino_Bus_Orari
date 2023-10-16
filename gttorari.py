@@ -113,19 +113,21 @@ fermata_desiderata = 39  # Ad esempio, fermata 9
 # funziona che restituisce il numero della fermata avendo l'id della fermata usando il csv  id si trova nella colonna 0 invece il numero nella colonna 1
 
 # Definisci il nome del tuo file CSV
-file_path = 'Resources/gtt_gtfs/stops.txt'
+
 
 # Crea un dizionario per mappare l'ID alla fermata
 id_to_N = {}
-
-# Leggi il file CSV e crea il mapping
-with open(file_path, newline='') as csvfile:
-    reader = csv.reader(csvfile)
-    for row in reader:
-        id_fermata = row[1]
-        N_fermata = row[0]
-        id_to_N[id_fermata] = N_fermata
-
+N_to_id = {}
+def opencsv():
+    file_path = 'Resources/gtt_gtfs/stops.txt'
+    # Leggi il file CSV e crea il mapping
+    with open(file_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            id_fermata = row[0]  # Modifica 0 a 1 se l'ID è nella seconda colonna
+            N_fermata = row[1]  # Modifica 1 a 0 se il numero della fermata è nella prima colonna
+            id_to_N[id_fermata] = N_fermata
+            N_to_id[N_fermata] = id_fermata
 
 def find_n_stop(id):
     # Cerca il numero della fermata (N) utilizzando l'ID della fermata
@@ -135,6 +137,13 @@ def find_n_stop(id):
     else:
         return ""
 
+def find_id_from_n(numero_fermata):
+    # Cerca l'ID della fermata utilizzando il numero della fermata (N)
+    if numero_fermata in N_to_id:
+        id_corrispondente = N_to_id[numero_fermata]
+        return id_corrispondente
+    else:
+        return ""
 
 # Analizza il file binario GTFS Real-Time
 # arrivi_per_linea = analizza_file_binario('Resources/trip_update.bin', fermata_desiderata)
@@ -159,4 +168,5 @@ def allerts(filename, ):
 
 # analizza('Resources/trip_update.bin' )
 # analizza('Resources/vehicle.bin' )
+opencsv()
 allerts('Resources/alerts.bin')
