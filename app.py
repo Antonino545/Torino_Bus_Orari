@@ -26,7 +26,6 @@ def get_fermata(fermata):
 
 @app.route('/fermata/<int:fermata>/<int:line>', methods=['GET'])
 def get_fermata_line(fermata, line):
-
     return gttorari.printnextpass(gttorari.gttorari_stop_line(fermata, line))
 
 
