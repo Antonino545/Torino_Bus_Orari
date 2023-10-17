@@ -26,16 +26,7 @@ def get_fermata(fermata):
 
 @app.route('/fermata/<int:fermata>/<int:line>', methods=['GET'])
 def get_fermata_line(fermata, line):
-    string = "i passaggi per la fermata " + str(fermata) + " sono: <br>"
 
-    return string + gttorari.printout(gttorari.gttorari_stop_line(fermata, line))
-
-
-@app.route('/flutter/fermata/<int:fermata>/json', methods=['GET'])
-def get_fermata_json(fermata):
-    return jsonify(gttorari.gttorari_stop(fermata))
+    return gttorari.printnextpass(gttorari.gttorari_stop_line(fermata, line))
 
 
-@app.route('/flutter/fermata/<int:fermata>/<int:line>/json', methods=['GET'])
-def get_fermata_line_json(fermata, line):
-    return jsonify(gttorari.gttorari_stop_line(fermata, line))
