@@ -1,5 +1,0 @@
-"fare_id","price","currency_type","payment_method","transfers","transfer_duration","agency_id"
-"201","1.70","EUR","1","","5400","U"
-"202","1.70","EUR","1","1","","U"
-"203","1.70","EUR","1","","5400","U"
-"204","1.70","EUR","1","","5400","U"

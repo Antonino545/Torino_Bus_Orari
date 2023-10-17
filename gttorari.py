@@ -19,8 +19,7 @@ def jsonout(data):
 def printout(data):
     var = ""
     for bus_line, direction, pas, nextpass in data:
-        var += "Linea: " + bus_line + "<br>"
-        var += "Direzione: " + direction + "<br>"
+        var += "Linea: " + bus_line +" ("+ direction + ")<br>"
         var += "Passaggi: " + pas + "<br>"
         if nextpass <= 1:
             var += "Prossimo passaggio tra meno di un minuto" + "<br>"
