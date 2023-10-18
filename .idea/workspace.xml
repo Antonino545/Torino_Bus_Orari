@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="micro change">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Gtt_site.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gtt_site.iml" afterDir="false" />
+    <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="fix error in not real time variable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gttorari.py" beforeDir="false" afterPath="$PROJECT_DIR$/gttorari.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/whoare.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/whoare.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Flask Main" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -37,6 +35,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -67,6 +68,7 @@
       <recent name="C:\Users\incor\Documents\Project\Python Project\Gtt_site\Resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\incor\Documents\Project\Python Project\Gtt_site\static" />
       <recent name="C:\Users\incor\Documents\Project\Python Project\Gtt_site\Resources" />
     </key>
   </component>
@@ -117,7 +119,7 @@
       <workItem from="1697529432142" duration="2073000" />
       <workItem from="1697533501612" duration="257000" />
       <workItem from="1697547975161" duration="1328000" />
-      <workItem from="1697639149076" duration="899000" />
+      <workItem from="1697639149076" duration="1842000" />
     </task>
     <task id="LOCAL-00001" summary="miscellaneous fix">
       <option name="closed" value="true" />
@@ -175,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697548123942</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix error in not real time variable">
+      <option name="closed" value="true" />
+      <created>1697640110298</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697640110298</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,11 +197,12 @@
     <MESSAGE value="fix name jsonout" />
     <MESSAGE value="add allert" />
     <MESSAGE value="micro change" />
-    <option name="LAST_COMMIT_MESSAGE" value="micro change" />
+    <MESSAGE value="fix error in not real time variable" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix error in not real time variable" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gtt_site$app.coverage" NAME="app Coverage Results" MODIFIED="1697464138628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gtt_site$gttorari.coverage" NAME="gttorari Coverage Results" MODIFIED="1697530862257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Gtt_site$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1697639919402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Gtt_site$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1697640983263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

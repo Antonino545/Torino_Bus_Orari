@@ -4,37 +4,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+
     <meta charset="UTF-8">
     <title>GTT Orari</title>
 </head>
-<body>
+<body onload="init()">
 <nav class="navbar navbar-expand-sm  ">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><p class="h1">GTT Orari</p> </a>
+        <a class="navbar-brand" href="/"><p class="h1">GTT Orari</p> </a>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="">Orari Fermata</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Support</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/chi_sono">Chi sono</a>
             </li>
-
         </ul>
     </div>
 </nav>
 <div class="container-md container-fluid ">
     <div class="align-content-center">
         <p class="h1">Benvenuto Gtt orari </p>
-        <form >
-            <div class="form-group">
-                <label for="stop">Inserisci numero di fermata </label>
-                    <input type="number" class="form-control" id="stop" placeholder="inserisci fermata">
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
-        </form>
+    <form id="stopForm">
+        <div class="form-group">
+            <label for="stop">Inserisci numero di fermata</label>
+            <input type="number" class="form-control" id="stop" placeholder="Inserisci fermata">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
 
     </div>
 
