@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
+
 import gttorari
 
 app = Flask(__name__)
@@ -26,9 +27,8 @@ def chi_sono():
 def get_fermata(fermata):
     string = "I passaggi per la fermata " + str(fermata) + " sono: <br>"
     gtt = gttorari.printout(gttorari.gttorari_stop(fermata))
-    if gtt != "Errore: Fermata non trovata o sito non raggiungibile":
+
+    if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
         return string + gtt
     else:
         return gtt
-
-
