@@ -8,17 +8,24 @@ import requests
 
 def printout(data):
     var = ""
+    if data is requests.exceptions.HTTPError:
+        return "Errore: Fermata non trovata o sito non raggiungibile"
     for bus_line, direction, pas, nextpass in data:
-        var += "Linea: " + bus_line +" ("+ direction + ")<br>"
+        var += "Linea: " + bus_line + " (" + direction + ")<br>"
         var += "Passaggi: " + pas + "<br>"
         if nextpass <= 1:
             var += "Prossimo passaggio: In arrivo" + "<br>"
         else:
             var += "Prossimo passaggio: " + str(nextpass) + " minuti" + "<br>"
     return var
+
+
 def gttorari_url(url):
-    response = requests.get(url)
-    response.raise_for_status()
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        return err
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
     data = []
     table = soup.find('tbody')
@@ -38,7 +45,6 @@ def gttorari_url(url):
                 now = datetime.datetime.now(rome_timezone)
                 nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
                 data.append((bus_line, direction, pas, nextpass))
-
 
     return data
 
