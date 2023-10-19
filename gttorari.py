@@ -34,6 +34,7 @@ def gttorari_url(url):
             response.raise_for_status()
         except requests.exceptions.HTTPError as err:
             print(err)
+            return "Errore: Fermata non trovata o sito non raggiungibile"
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
     data = []
     table = soup.find('tbody')
