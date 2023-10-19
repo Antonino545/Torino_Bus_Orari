@@ -4,11 +4,12 @@ import json
 import bs4
 import pytz
 import requests
+from requests import HTTPError
 
 
 def printout(data):
     var = ""
-    if data is requests.exceptions.HTTPError:
+    if data is HTTPError:
         return "Errore: Fermata non trovata o sito non raggiungibile"
     for bus_line, direction, pas, nextpass in data:
         var += "Linea: " + bus_line + " (" + direction + ")<br>"
@@ -25,6 +26,7 @@ def gttorari_url(url):
         response = requests.get(url)
         response.raise_for_status()
     except requests.exceptions.HTTPError as err:
+        print(err)
         return err
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
     data = []
