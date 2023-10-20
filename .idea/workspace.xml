@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="fix error with &quot;Non disponibile&quot;">
+    <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="micro change in print out">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gttorari.py" beforeDir="false" afterPath="$PROJECT_DIR$/gttorari.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +129,7 @@
       <workItem from="1697801093927" duration="168000" />
       <workItem from="1697801536219" duration="1397000" />
       <workItem from="1697816803250" duration="2362000" />
-      <workItem from="1697826651215" duration="415000" />
+      <workItem from="1697826651215" duration="788000" />
     </task>
     <task id="LOCAL-00001" summary="miscellaneous fix">
       <option name="closed" value="true" />
@@ -274,7 +275,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697827033651</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="micro change in print out">
+      <option name="closed" value="true" />
+      <created>1697827081511</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1697827081511</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,7 +343,8 @@
     <MESSAGE value="change minuto in minuti" />
     <MESSAGE value="micro fix" />
     <MESSAGE value="fix error with &quot;Non disponibile&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix error with &quot;Non disponibile&quot;" />
+    <MESSAGE value="micro change in print out" />
+    <option name="LAST_COMMIT_MESSAGE" value="micro change in print out" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gtt_site$gttorari.coverage" NAME="gttorari Coverage Results" MODIFIED="1697530862257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
