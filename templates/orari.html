@@ -45,11 +45,14 @@
                         <td>{{ row[1] }}</td>
                         <td>{{ row[2] }}</td>
                         <td>
-                            {% if row[3] <= 1 %}
+                            {%  if row[3] =="Non disponibile" %}
+                                Non disponibile
+                            {% elif row[3] <= 1 %}
                                 In arrivo
                             {% else %}
                                 {{ row[3] }} minuti
                             {% endif %}
+
                         </td>
                     </tr>
                 {% endfor %}
