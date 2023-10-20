@@ -13,7 +13,7 @@ def printout(data):
         var += "Linea: " + bus_line + " (" + direction + ")<br>"
         var += "Passaggi: " + pas + "<br>"
         if nextpass == "Non disponibile":
-            var += "Prossimo passaggio: Non disponibile" + "<br>"
+            var += "Prossimo passaggio: Non disponibile <br>"
         if int(nextpass) <= 1:
             var += "Prossimo passaggio: In arrivo" + "<br>"
         else:
