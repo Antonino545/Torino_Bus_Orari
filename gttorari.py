@@ -7,11 +7,13 @@ import requests
 
 def printout(data):
     var = ""
-    if data is "Errore: Fermata non trovata o sito non raggiungibile":
+    if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data
     for bus_line, direction, pas, nextpass in data:
         var += "Linea: " + bus_line + " (" + direction + ")<br>"
         var += "Passaggi: " + pas + "<br>"
+        if nextpass == "Non disponibile":
+            var += "Prossimo passaggio: Non disponibile" + "<br>"
         if int(nextpass) <= 1:
             var += "Prossimo passaggio: In arrivo" + "<br>"
         else:
@@ -47,23 +49,23 @@ def gttorari_url(url):
             pas = cols[2].text.replace(
                 "Al momento non ci sono previsioni in tempo reale, clicca qui per visualizzare i passaggi programmati.",
                 "").strip()
-            print(pas)
             if pas != "":
-                print(pas)
-                if '*' in pas:
-                    print("*")
-                    time_str = pas.split('*')[0]
-                    hours, minutes = map(int, time_str.split(':'))
-                else:
-                    if '\xa0' in pas:
-                        print('\xa0')
-                        pas = pas.replace('\xa0', '')
-                    time_str = pas.split(' ')[0]
-                    hours, minutes = map(int, time_str.split(':'))
+                try:
+                    print(pas)
+                    if '*' in pas:
+                        time_str = pas.split('*')[0]
+                        hours, minutes = map(int, time_str.split(':'))
+                    else:
+                        if '\xa0' in pas:
+                            pas = pas.replace('\xa0', ' ')
+                        time_str = pas.split(' ')[0]
+                        hours, minutes = map(int, time_str.split(':'))
+                    rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
+                    now = datetime.datetime.now(rome_timezone)
+                    nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
+                except ValueError:
 
-                rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
-                now = datetime.datetime.now(rome_timezone)
-                nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
+                    nextpass = "Non disponibile"
                 data.append((bus_line, direction, pas, nextpass))
 
     return data
