@@ -22,7 +22,7 @@ def printout(data):
 
 
 def gttorari_url(url):
-    global response
+    response = None
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -50,24 +50,16 @@ def gttorari_url(url):
                 "Al momento non ci sono previsioni in tempo reale, clicca qui per visualizzare i passaggi programmati.",
                 "").strip()
             if pas != "":
-                try:
-                    print(pas)
+
                     if '*' in pas:
                         time_str = pas.split('*')[0]
                         hours, minutes = map(int, time_str.split(':'))
+                        rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
+                        now = datetime.datetime.now(rome_timezone)
+                        nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
                     else:
-                        if '\xa0' in pas:
-                            pas = pas.replace('\xa0', ' ')
-                        time_str = pas.split(' ')[0]
-                        hours, minutes = map(int, time_str.split(':'))
-                    rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
-                    now = datetime.datetime.now(rome_timezone)
-                    nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
-                except ValueError:
-
-                    nextpass = "Non disponibile"
-                data.append((bus_line, direction, pas, nextpass))
-
+                        nextpass = "Non disponibile"
+                    data.append((bus_line, direction, pas, nextpass))
     return data
 
 
