@@ -14,7 +14,7 @@ def printout(data):
         var += "Passaggi: " + pas + "<br>"
         if nextpass == "Non disponibile":
             var += "Prossimo passaggio: Non disponibile <br>"
-        if int(nextpass) <= 1:
+        elif int(nextpass) <= 1:
             var += "Prossimo passaggio: In arrivo" + "<br>"
         else:
             var += "Prossimo passaggio: " + str(nextpass) + " minuti" + "<br>"
@@ -51,15 +51,15 @@ def gttorari_url(url):
                 "").strip()
             if pas != "":
 
-                    if '*' in pas:
-                        time_str = pas.split('*')[0]
-                        hours, minutes = map(int, time_str.split(':'))
-                        rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
-                        now = datetime.datetime.now(rome_timezone)
-                        nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
-                    else:
-                        nextpass = "Non disponibile"
-                    data.append((bus_line, direction, pas, nextpass))
+                if '*' in pas:
+                    time_str = pas.split('*')[0]
+                    hours, minutes = map(int, time_str.split(':'))
+                    rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
+                    now = datetime.datetime.now(rome_timezone)
+                    nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
+                else:
+                    nextpass = "Non disponibile"
+                data.append((bus_line, direction, pas, nextpass))
     return data
 
 
