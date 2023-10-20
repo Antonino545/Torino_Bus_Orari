@@ -23,7 +23,7 @@ def chi_sono():
     return render_template('whoare.html')
 
 
-@app.route('/fermata/<int:fermata>', methods=['GET'])
+@app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
     string = "I passaggi per la fermata " + str(fermata) + " sono: <br>"
     gtt = gttorari.printout(gttorari.gttorari_stop(fermata))
@@ -32,3 +32,9 @@ def get_fermata(fermata):
         return string + gtt
     else:
         return gtt
+
+
+@app.route('/fermata/<int:fermata>', methods=['GET'])
+def get_stop_web(fermata):
+    data = gttorari.gttorari_stop(fermata)
+    return render_template('orari.html', data=data, stop=fermata)

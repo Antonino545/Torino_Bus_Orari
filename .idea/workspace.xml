@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="update requirements.txt">
+    <list default="true" id="2d86dacf-63d3-42ff-8857-8821ee60f8bd" name="Changes" comment="micro fix">
+      <change afterPath="$PROJECT_DIR$/templates/orari.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/whoare.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/whoare.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +126,7 @@
       <workItem from="1697639149076" duration="1842000" />
       <workItem from="1697786596086" duration="885000" />
       <workItem from="1697801093927" duration="168000" />
-      <workItem from="1697801536219" duration="274000" />
+      <workItem from="1697801536219" duration="1397000" />
     </task>
     <task id="LOCAL-00001" summary="miscellaneous fix">
       <option name="closed" value="true" />
@@ -230,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697801241050</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="micro fix">
+      <option name="closed" value="true" />
+      <created>1697801880315</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1697801880315</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,11 +258,12 @@
     <MESSAGE value="errore in container" />
     <MESSAGE value="add try" />
     <MESSAGE value="update requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="update requirements.txt" />
+    <MESSAGE value="micro fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="micro fix" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Gtt_site$app.coverage" NAME="app Coverage Results" MODIFIED="1697464138628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gtt_site$gttorari.coverage" NAME="gttorari Coverage Results" MODIFIED="1697530862257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Gtt_site$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1697801778225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Gtt_site$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1697802893560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
