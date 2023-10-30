@@ -5,7 +5,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
-    <script src="{{ url_for('static', filename='index.js') }}"></script>
 
     <meta charset="UTF-8">
     <title>GTT Orari</title>
@@ -19,28 +18,32 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
 
-                <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shortcuts"><p class="h5">Shortcuts</p></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/whoare"><p class="h5">Chi sono</p></a>
-                    </li>
-                </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shortcuts"><p class="h5">Shortcuts</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/whoare"><p class="h5">Chi sono</p></a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
     <div class="align-content-center">
-        <p class="h1">Benvenuto Gtt orari </p>
-        <form id="stopForm">
-            <div class="form-group">
-                <label for="stop">Inserisci numero di fermata</label>
-                <input type="number" class="form-control" id="stop" placeholder="Inserisci fermata">
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
-        </form>
+        <p class="h3">Seleziona la shortcut che ti interessa</p>
+        <div class="row">
+        <div class="col-auto" >
+            <p>  <b>Andata</b> </p>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='fermata/2729'">Alpignagno</button>
+
+        </div>
+        <div class="col-auto" >
+            <p>  <b>Ritorno</b> </p>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='fermata/2763'">Alpignagno</button>
+        </div>
+        </div>
     </div>
 </div>
 </body>

@@ -18,9 +18,14 @@ def orari_fermata():
     return "Orari fermata"
 
 
-@app.route('/chi_sono')
+@app.route('/whoare')
 def chi_sono():
     return render_template('whoare.html')
+
+
+@app.route('/shortcuts')
+def shortcuts():
+    return render_template('shortcuts.html')
 
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
