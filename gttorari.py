@@ -40,7 +40,7 @@ def gttorari_url(url):
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
     data = []
     table = soup.find('tbody')
-    stop= soup.find('strong').text.strip()
+    stop = soup.find('strong').text.strip()
 
     if table:
         rows = table.find_all('tr')
@@ -62,8 +62,11 @@ def gttorari_url(url):
                 else:
                     nextpass = "Non disponibile"
                 data.append((bus_line, direction, pas, nextpass))
-    if(stop == ""):
+    if stop == "":
         stop = "Fermata non trovata"
+    if "." in stop:
+        stop.replace(".", "")
+
     return data, stop
 
 
