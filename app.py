@@ -30,8 +30,8 @@ def shortcuts():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    data, stop = gttorari.gttorari_stop(fermata)
-    gtt = gttorari.printout(data)
+    gtt, stop = gttorari.gttorari_stop(fermata)
+    gtt = gttorari.printout(gtt)
     string = "Fermata:" + stop + "<br>"
     if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
         return string + gtt
