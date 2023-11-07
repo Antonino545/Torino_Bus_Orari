@@ -57,14 +57,13 @@ def get_stop_web(fermata):
         print(err)
         return render_template('error.html')
 
-
-@app.route('/fermata/<int:fermata>/<string:linea>', methods=['POST'])
-def get_linea_fermata(fermata, linea):
-
-        gtt, stop = gttorari.gttorari_stop_line(fermata, linea)
-        gtt = gttorari.printout(gtt)
-        string = "Fermata:" + stop + "<br>"
-        if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
-            return string + gtt
-        else:
-            return gtt
+# @app.route('/fermata/<int:fermata>/<string:linea>', methods=['POST'])
+# def get_linea_fermata(fermata, linea):
+#
+#       gtt, stop = gttorari.gttorari_stop_line(fermata, linea)
+#      gtt = gttorari.printout(gtt)
+#     string = "Fermata:" + stop + "<br>"
+#    if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
+#       return string + gtt
+#  else:
+#     return gtt
