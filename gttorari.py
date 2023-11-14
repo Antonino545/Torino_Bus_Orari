@@ -79,13 +79,14 @@ def gttorari_stop(stop):
     else:
         return print("La fermata inserita non è valida")
 
-# def gttorari_stop_line(stop, line):
-#   data, stop = gttorari_stop(stop)
-#  if data == "Errore: Fermata non trovata o sito non raggiungibile":
-#     return data
-# else:
-#   data = data[0]
-#  data = [i for i in data if i[0] == line]
-#  return data, stop
 
-# print(gttorari_stop_line(597, "9"))
+def gttorari_stop_line(stop, line):
+    data, stop = gttorari_stop(stop)
+    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+        return data
+    else:
+        data = [x for x in data if x[0] == line]
+        return data, stop
+
+
+
