@@ -5,8 +5,12 @@ function init() {
 //even listener
 function listener(e){
         e.preventDefault();
-    var stopValue = document.getElementById("stop").value;
-    if (stopValue) {
+    const stopValue = document.getElementById("stop").value;
+    const lineValue = document.getElementById("line").value;
+    if (lineValue&&stopValue) {
+        window.location.href = "fermata/" + stopValue + "/" + lineValue;
+    }
+    else if (stopValue) {
         window.location.href = "fermata/" + stopValue;
     }
 }
