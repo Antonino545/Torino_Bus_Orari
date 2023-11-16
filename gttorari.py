@@ -52,6 +52,7 @@ def gttorari_url(url):
                 "Al momento non ci sono previsioni in tempo reale, clicca qui per visualizzare i passaggi programmati.",
                 "").strip()
             if pas != "":
+                pas = ''.join(char for char in pas if char.isdigit())
 
                 if '*' in pas:
                     time_str = pas.split('*')[0]
