@@ -4,13 +4,12 @@ import gttorari
 
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    app.run()
+
 
 
 @app.route("/")
 def hello():
-    return render_template('index.html')
+    return render_template('welcome.html', title='Home')
 
 
 @app.route('/orari_fermata')
@@ -81,3 +80,5 @@ def get_linea_web(fermata, linea):
     except Exception as err:
         print(err)
         return render_template('error.html')
+if __name__ == '__main__':
+    app.run()
