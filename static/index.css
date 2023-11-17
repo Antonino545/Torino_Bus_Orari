@@ -1,4 +1,10 @@
-.navbar{
-    background-color: lightblue;
+.navbar {
+    background-color: lightblue !important;
     color: white;
+}
+body{
+    margin-top: 80px;
+}
+label{
+    font-weight: bold;
 }
