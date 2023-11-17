@@ -21,6 +21,15 @@ def printout(data):
     return var
 
 
+def formatta_orario(input_string):
+    result = ''
+    for i in range(0, len(input_string), 4):
+        result += input_string[i:i + 2] + ':' + input_string[i + 2:i + 4] + ' '
+    # Rimuovi lo spazio in eccesso alla fine
+    result = result[:-1]
+    return result
+
+
 def gttorari_url(url):
     response = None
     try:
@@ -52,15 +61,24 @@ def gttorari_url(url):
                 "Al momento non ci sono previsioni in tempo reale, clicca qui per visualizzare i passaggi programmati.",
                 "").strip()
             if pas != "":
-
-                if '*' in pas:
+                pas = ''.join(char for char in pas if char.isdigit())
+                if '*' in pas and ":" in pas:
                     time_str = pas.split('*')[0]
                     hours, minutes = map(int, time_str.split(':'))
                     rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
                     now = datetime.datetime.now(rome_timezone)
                     nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
                 else:
-                    nextpass = "Non disponibile"
+                    try:
+
+                        pas = formatta_orario(pas)
+                        hours, minutes = map(int, pas.split(' ') [0].split(':') )
+                        rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
+                        now = datetime.datetime.now(rome_timezone)
+                        nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
+                    except:
+                        nextpass = "Non disponibile"
+
                 data.append((bus_line, direction, pas, nextpass))
     if stop == "":
         stop = "Fermata non trovata"
@@ -87,6 +105,3 @@ def gttorari_stop_line(stop, line):
     else:
         data = [x for x in data if x[0] == line]
         return data, stop
-
-
-
