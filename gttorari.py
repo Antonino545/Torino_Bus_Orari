@@ -4,7 +4,7 @@ import bs4
 import pytz
 import requests
 
-import gttapi
+
 
 
 def printout(data):
@@ -91,7 +91,8 @@ def gttorari_url(url):
 
 
 def gttorari_stop(stop):
-    stop = gttapi.ask_stop(stop)
+    url = "https://www.gtt.to.it/cms/percorari/arrivi?palina=597&bacino=" + str(stop)
+    return gttorari_url(url)
 
 
 
