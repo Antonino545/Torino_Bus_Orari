@@ -32,17 +32,11 @@ def error():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    try:
-        gtt, stop = gttorari.gttorari_stop(fermata)
-        gtt = gttorari.printout(gtt)
-        string = "Fermata:" + stop + "<br>"
-        if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
-            return string + gtt
-        else:
-            return gtt
-    except Exception as err:
-        print(err)
-        return "Errore: Fermata non trovata o sito non raggiungibile"
+    data, stop = gttorari.stampa_passaggi(fermata)
+    gtt = gttorari.printout(data)
+    string = "Fermata:" + str(stop) + "<br>"
+    if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
+        return string + gtt
 
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
@@ -59,6 +53,7 @@ def get_stop_web(fermata):
 def get_linea_post(fermata, linea):
     try:
         data, stop = gttorari.gttorari_stop_line(fermata, linea)
+
         gtt = gttorari.printout(data)
         string = "Fermata:" + stop + "<br>"
         if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
