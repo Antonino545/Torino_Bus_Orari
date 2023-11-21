@@ -5,6 +5,8 @@ import gttorari
 app = Flask(__name__)
 
 
+
+
 @app.route("/")
 def hello():
     return render_template('welcome.html', title='Home')
@@ -78,7 +80,5 @@ def get_linea_web(fermata, linea):
     except Exception as err:
         print(err)
         return render_template('error.html')
-
-
 if __name__ == '__main__':
     app.run()
