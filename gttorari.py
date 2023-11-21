@@ -119,4 +119,5 @@ def gttorari_stop_line(stop, line):
         return data, stop
 
 
-print(gttorari_stop(597))
+
+
