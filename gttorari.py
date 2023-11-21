@@ -5,8 +5,6 @@ import pytz
 import requests
 
 
-
-
 def printout(data):
     var = ""
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
@@ -74,7 +72,7 @@ def gttorari_url(url):
                     try:
 
                         pas = formatta_orario(pas)
-                        hours, minutes = map(int, pas.split(' ')[0].split(':'))
+                        hours, minutes = map(int, pas.split(' ') [0].split(':') )
                         rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
                         now = datetime.datetime.now(rome_timezone)
                         nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
@@ -91,23 +89,13 @@ def gttorari_url(url):
 
 
 def gttorari_stop(stop):
-    url = "https://www.gtt.to.it/cms/percorari/arrivi?palina=597&bacino=" + str(stop)
-    return gttorari_url(url)
-
-
-
-
-def printapi(data):
-    var = ""
-    for d in data:
-        var += f"Linea: {d["line"]}  \n"
-        var += f"Passaggi: {d["hour"]}"
-        if d["realtime"] == "true":
-            var += "* \n"
-        else:
-            var += "\n"
-
-    return var
+    if isinstance(stop, int):
+        pre = "https://www.gtt.to.it/cms/percorari/arrivi?palina="
+        post = "&bacino="
+        url = pre + str(stop) + post
+        return gttorari_url(url)
+    else:
+        return print("La fermata inserita non è valida")
 
 
 def gttorari_stop_line(stop, line):
@@ -117,7 +105,3 @@ def gttorari_stop_line(stop, line):
     else:
         data = [x for x in data if x[0] == line]
         return data, stop
-
-
-
-
