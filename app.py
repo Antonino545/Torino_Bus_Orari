@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 
 import gttorari
+
 global stopsdata
 app = Flask(__name__)
 
@@ -32,18 +33,18 @@ def error():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    data, stop = gttorari.gttorariAPI(fermata)
+    data, stop = gttorari.gttorari_stop(597)
     stop = gttorari.NameStop(stop, stopsdata)
-    gtt = gttorari.printout(data)
+    data = str(gttorari.printout(data))
     string = "Fermata:" + str(stop) + "<br>"
-    if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
-        return string + gtt
+    if (data != "Errore: Fermata non trovata o sito non raggiungibile"):
+        return string + data
 
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_stop_web(fermata):
     try:
-        data, stop = gttorari.gttorariAPI(fermata)
+        data, stop = gttorari.gttorari_stop(fermata)
         stop = gttorari.NameStop(stop, stopsdata)
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
@@ -81,7 +82,7 @@ def get_linea_web(fermata, linea):
 @app.before_request
 def before_request():
     global stopsdata
-    stopsdata= gttorari.read_csv("Resources/NewStop.csv")
+    stopsdata = gttorari.read_csv("Resources/NewStop.csv")
     print("dati fermate caricati")
 
 

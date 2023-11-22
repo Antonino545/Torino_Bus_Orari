@@ -13,19 +13,21 @@
                 <tr>
                     <th>Linea</th>
                     <th>Passaggi</th>
+                    <th>Destinazione</th>
                     <th>Prossimo passaggio in </th>
                 </tr>
                 {% for row in data %}
                     <tr>
                         <td>{{ row[0] }}</td>
                         <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
                         <td>
-                            {%  if row[2] =="Non disponibile" %}
+                            {%  if row[3] =="Non disponibile" %}
                                 Non disponibile
-                            {% elif row[2] <= 1 %}
+                            {% elif row[3] <= 1 %}
                                 In arrivo
                             {% else %}
-                                {{ row[2] }} minuti
+                                {{ row[3] }} minuti
                             {% endif %}
 
                         </td>
