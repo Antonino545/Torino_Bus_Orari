@@ -42,7 +42,7 @@ def get_fermata(fermata):
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_stop_web(fermata):
     try:
-        data, stop = gttorari.gttorari_stop(fermata)
+        data, stop = gttorari.gttorariAPI(fermata)
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)

@@ -146,7 +146,8 @@ def apidata(stop):
 
 
 def gttorari_stop_line(stop, line):
-    data, stop = gttorari_stop(stop)
+    line=str(line)
+    data, stop = gttorariAPI(stop)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data
     else:
@@ -165,3 +166,4 @@ def NameStop(stop):
     for row in data:
         if row[0] == str(stop):
             return row[1]
+

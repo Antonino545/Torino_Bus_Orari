@@ -7,10 +7,11 @@
 
             <h1>Fermata:{{ stop }}</h1>
             <p>Se segnalato con * si tratta di arrivi in tempo reale</p>
+            <p>Se la linea viene visualizzata come 0 potrebbe essere una linea con un carattere</p>
+
             <table class="table table-hover">
                 <tr>
                     <th>Linea</th>
-                    <th>Destinazione</th>
                     <th>Passaggi</th>
                     <th>Prossimo passaggio in </th>
                 </tr>
@@ -18,14 +19,13 @@
                     <tr>
                         <td>{{ row[0] }}</td>
                         <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
                         <td>
-                            {%  if row[3] =="Non disponibile" %}
+                            {%  if row[2] =="Non disponibile" %}
                                 Non disponibile
-                            {% elif row[3] <= 1 %}
+                            {% elif row[2] <= 1 %}
                                 In arrivo
                             {% else %}
-                                {{ row[3] }} minuti
+                                {{ row[2] }} minuti
                             {% endif %}
 
                         </td>
