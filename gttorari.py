@@ -1,10 +1,17 @@
 import csv
 import datetime
-import json
 
 import bs4
 import pytz
 import requests
+
+
+def next_pass(pas):
+    hours, minutes = map(int, pas.split(' ')[0].split(':'))
+    rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
+    now = datetime.datetime.now(rome_timezone)
+    nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
+    return nextpass
 
 
 def printout(data):
@@ -32,6 +39,7 @@ def formatta_orario(input_string):
     return result
 
 
+# @todo: fix this
 def gttorari_url(url):
     response = None
     try:
@@ -72,13 +80,9 @@ def gttorari_url(url):
                     nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
                 else:
                     try:
-
                         pas = formatta_orario(pas)
-                        hours, minutes = map(int, pas.split(' ')[0].split(':'))
-                        rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
-                        now = datetime.datetime.now(rome_timezone)
-                        nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
-                    except:
+                        nextpass = next_pass(pas)
+                    except ValueError:
                         nextpass = "Non disponibile"
 
                 data.append((bus_line, direction, pas, nextpass))
@@ -90,6 +94,7 @@ def gttorari_url(url):
     return data, stop
 
 
+# togliere funzione non e piu usata
 def gttorari_stop(stop):
     if isinstance(stop, int):
         pre = "https://www.gtt.to.it/cms/percorari/arrivi?palina="
@@ -101,11 +106,12 @@ def gttorari_stop(stop):
 
 
 def gttorariAPI(stop):
-    dati = apidata(stop)
+    dati = api_data(stop)
     orari_unificati = {}
     count = 0
 
     for passaggio in dati:
+
         linea = passaggio['line']
         if count <= 4:
             orario_dt = datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')
@@ -117,24 +123,19 @@ def gttorariAPI(stop):
 
         if linea not in orari_unificati:
             orari_unificati[linea] = {'orari': []}
-
         if realtime:
             orari_unificati[linea]['orari'].append(orario + '*')
         else:
             orari_unificati[linea]['orari'].append(orario)
     risultato = []
     for linea, info in orari_unificati.items():
-        orariAsterisco = ' '.join(info['orari'])
-        orari = orariAsterisco.replace("*", "")
-        hours, minutes = map(int, orari.split(' ')[0].split(':'))
-        rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
-        now = datetime.datetime.now(rome_timezone)
-        nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
-        risultato.append((linea, orariAsterisco, nextpass))
+        passaggi = ' '.join(info['orari'])
+        orari = passaggi.replace("*", "")
+        risultato.append((linea, passaggi, next_pass(orari)))
     return risultato, NameStop(stop)
 
 
-def apidata(stop):
+def api_data(stop):
     url = "https://gpa.madbob.org/query.php?stop=" + str(stop)
     try:
         response = requests.get(url)
@@ -146,7 +147,7 @@ def apidata(stop):
 
 
 def gttorari_stop_line(stop, line):
-    line=str(line)
+    line = str(line)
     data, stop = gttorariAPI(stop)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data
@@ -155,15 +156,14 @@ def gttorari_stop_line(stop, line):
         return data, stop
 
 
-def readcsv(file_path):
+def read_csv(file_path):
     with open(file_path, 'r') as infile:
         reader = csv.reader(infile)
         return list(reader)
 
 
 def NameStop(stop):
-    data = readcsv("Resources/NewStop.csv")
+    data = read_csv("Resources/NewStop.csv")
     for row in data:
         if row[0] == str(stop):
             return row[1]
-
