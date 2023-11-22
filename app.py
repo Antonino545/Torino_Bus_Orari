@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
 import gttorari
-
+global stopsdata
 app = Flask(__name__)
 
 
@@ -33,6 +33,7 @@ def error():
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
     data, stop = gttorari.gttorariAPI(fermata)
+    stop = gttorari.NameStop(stop, stopsdata)
     gtt = gttorari.printout(data)
     string = "Fermata:" + str(stop) + "<br>"
     if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
@@ -43,6 +44,7 @@ def get_fermata(fermata):
 def get_stop_web(fermata):
     try:
         data, stop = gttorari.gttorariAPI(fermata)
+        stop = gttorari.NameStop(stop, stopsdata)
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
@@ -53,7 +55,7 @@ def get_stop_web(fermata):
 def get_linea_post(fermata, linea):
     try:
         data, stop = gttorari.gttorari_stop_line(fermata, linea)
-
+        stop = gttorari.NameStop(stop, stopsdata)
         gtt = gttorari.printout(data)
         string = "Fermata:" + stop + "<br>"
         if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
@@ -69,10 +71,18 @@ def get_linea_post(fermata, linea):
 def get_linea_web(fermata, linea):
     try:
         data, stop = gttorari.gttorari_stop_line(fermata, linea)
+        stop = gttorari.NameStop(stop, stopsdata)
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
         return render_template('error.html')
+
+
+@app.before_request
+def before_request():
+    global stopsdata
+    stopsdata= gttorari.read_csv("Resources/NewStop.csv")
+    print("dati fermate caricati")
 
 
 if __name__ == '__main__':
