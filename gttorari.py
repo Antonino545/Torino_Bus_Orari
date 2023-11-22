@@ -108,31 +108,27 @@ def gttorari_stop(stop):
 def gttorariAPI(stop):
     dati = api_data(stop)
     orari_unificati = {}
-    count = 0
 
-    for passaggio in dati:
+    for count, passaggio in enumerate(dati):
+        if count > 4:
+            break
 
         linea = passaggio['line']
-        if count <= 4:
-            orario_dt = datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')
-            orario = orario_dt.strftime('%H:%M')
-            realtime = passaggio['realtime']
-        else:
-            break
-        count = count + 1
+        orario_dt = datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')
+        orario = orario_dt.strftime('%H:%M')
+        realtime = passaggio['realtime']
 
-        if linea not in orari_unificati:
-            orari_unificati[linea] = {'orari': []}
+        orari_unificati.setdefault(linea, {'orari': []})
+
         if realtime:
             orari_unificati[linea]['orari'].append(orario + '*')
         else:
             orari_unificati[linea]['orari'].append(orario)
-    risultato = []
-    for linea, info in orari_unificati.items():
-        passaggi = ' '.join(info['orari'])
-        orari = passaggi.replace("*", "")
-        risultato.append((linea, passaggi, next_pass(orari)))
-    return risultato, NameStop(stop)
+
+    risultato = [(linea, ' '.join(info['orari']).replace("*", ""), next_pass(' '.join(info['orari']).replace("*", "")))
+                 for linea, info in orari_unificati.items()]
+
+    return risultato, stop
 
 
 def api_data(stop):
@@ -162,8 +158,8 @@ def read_csv(file_path):
         return list(reader)
 
 
-def NameStop(stop):
-    data = read_csv("Resources/NewStop.csv")
+def NameStop(stop,data):
+
     for row in data:
         if row[0] == str(stop):
             return row[1]
