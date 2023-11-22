@@ -2,16 +2,15 @@ import csv
 import re
 
 # Funzione per rimuovere numeri, trattini e spazi dal terzo campo
-def remove_numbers_hyphen_and_spaces_from_field(field):
-    return re.sub(r'[\d\s-]+', '', field)
+
 
 # Nome del file di input e di output
 input_file = '../Resources/stops.txt'
-output_file = '../Resources/NewStop.txt'
+output_file = '../Resources/NewStop.csv'
 
 # Colonne da eliminare
 columns_to_remove = ["stop_timezone", "wheelchair_boarding", "stop_lat", "stop_lon", "zone_id", "parent_station",
-                     "location_type"]
+                     "location_type", "stop_desc", "stop_url","stop_id"]
 
 # Leggi il file di input e scrivi il file di output
 with open(input_file, 'r') as infile, open(output_file, 'w', newline='') as outfile:
@@ -31,7 +30,7 @@ with open(input_file, 'r') as infile, open(output_file, 'w', newline='') as outf
         new_row = [row[i] for i in keep_indices]
 
         # Rimuovi numeri, trattini e spazi dal terzo campo (assumendo che sia l'indice 2)
-        new_row[2] = remove_numbers_hyphen_and_spaces_from_field(row[2])
+        new_row[1] = row[2].replace(f"Fermata {row[1]} - ", "")
 
         writer.writerow(new_row)
 

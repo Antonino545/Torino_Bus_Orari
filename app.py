@@ -32,7 +32,7 @@ def error():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    data, stop = gttorari.stampa_passaggi(fermata)
+    data, stop = gttorari.gttorariAPI(fermata)
     gtt = gttorari.printout(data)
     string = "Fermata:" + str(stop) + "<br>"
     if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):

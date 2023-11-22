@@ -1,3 +1,4 @@
+import csv
 import datetime
 import json
 
@@ -99,8 +100,8 @@ def gttorari_stop(stop):
         return print("La fermata inserita non è valida")
 
 
-def stampa_passaggi(stop):
-    dati = gttorari_stopapi(stop)
+def gttorariAPI(stop):
+    dati = apidata(stop)
     orari_unificati = {}
     count = 0
 
@@ -130,10 +131,10 @@ def stampa_passaggi(stop):
         now = datetime.datetime.now(rome_timezone)
         nextpass = (hours * 60 + minutes) - (now.hour * 60 + now.minute)
         risultato.append((linea, orariAsterisco, nextpass))
-    return risultato, stop
+    return risultato, NameStop(stop)
 
 
-def gttorari_stopapi(stop):
+def apidata(stop):
     url = "https://gpa.madbob.org/query.php?stop=" + str(stop)
     try:
         response = requests.get(url)
@@ -153,3 +154,14 @@ def gttorari_stop_line(stop, line):
         return data, stop
 
 
+def readcsv(file_path):
+    with open(file_path, 'r') as infile:
+        reader = csv.reader(infile)
+        return list(reader)
+
+
+def NameStop(stop):
+    data = readcsv("Resources/NewStop.csv")
+    for row in data:
+        if row[0] == str(stop):
+            return row[1]
