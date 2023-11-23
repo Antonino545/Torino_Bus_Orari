@@ -136,6 +136,3 @@ def NameStop(stop, data):
             return row[1]
 
 
-data, stop = gttorari_stop(2627)
-
-print(data)
