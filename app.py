@@ -50,7 +50,7 @@ def get_stop_web(fermata):
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
-        return render_template('error.html')
+        return render_template('error.html', error=err)
 
 
 @app.route('/fermata/<int:fermata>/<string:linea>', methods=['POST'])
@@ -66,7 +66,7 @@ def get_linea_post(fermata, linea):
             return gtt
     except Exception as err:
         print(err)
-        return "Errore: Fermata non trovata o sito non raggiungibile"
+        return "Errore: Fermata non trovata o sito non raggiungibile" + str(err)
 
 
 @app.route('/fermata/<int:fermata>/<string:linea>', methods=['GET'])
@@ -77,7 +77,8 @@ def get_linea_web(fermata, linea):
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
-        return render_template('error.html')
+        return render_template('error.html', error=err)
+
 
 
 if __name__ == '__main__':
