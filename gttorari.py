@@ -104,12 +104,13 @@ def gttorariAPI(stop):
 
 
 def api_data(url):
+    timeout = 5
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=timeout)
         response.raise_for_status()
-    except requests.exceptions.HTTPError as err:
+    except requests.exceptions.RequestException as err:
         print(err)
-        return f"Errore: Fermata non trovata o sito non raggiungibile {err}"
+        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
     return response.json()
 
 
@@ -124,6 +125,7 @@ def gttorari_stop_line(stop, line):
 
 
 def NameStop(stop, df):
+
     result = df[df.iloc[:, 0].astype(str) == str(stop)]
     if not result.empty:
         return result.iloc[0, 1]

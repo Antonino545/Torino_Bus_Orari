@@ -50,6 +50,7 @@ def get_stop_web(fermata):
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
+
         return render_template('error.html', error=err)
 
 
