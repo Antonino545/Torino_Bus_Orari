@@ -45,7 +45,7 @@ def get_fermata(fermata):
 def get_stop_web(fermata):
     try:
         data, stop = gttorari.gttorari_stop(fermata)
-        stop = gttorari.NameStop(stop, stopsdata)
+        stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
@@ -72,7 +72,7 @@ def get_linea_post(fermata, linea):
 def get_linea_web(fermata, linea):
     try:
         data, stop = gttorari.gttorari_stop_line(fermata, linea)
-        stop = gttorari.NameStop(stop, stopsdata)
+        stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
         return render_template('orari.html', data=data, stop=stop)
     except Exception as err:
         print(err)
