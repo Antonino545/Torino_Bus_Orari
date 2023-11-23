@@ -109,7 +109,7 @@ def api_data(url):
         response.raise_for_status()
     except requests.exceptions.HTTPError as err:
         print(err)
-        return "Errore: Fermata non trovata o sito non raggiungibile"
+        return f"Errore: Fermata non trovata o sito non raggiungibile {err}"
     return response.json()
 
 
