@@ -1,7 +1,5 @@
 import csv
 import datetime
-
-import bs4
 import pytz
 import requests
 
@@ -65,6 +63,7 @@ def gttorari_stop(stop):
             nextpass = "Non disponibile"
             for passaggi in i["PassaggiPR"]:
                 preal = preal + str(passaggi)+" "
+            nextpass = next_pass(i["PassaggiPR"][0])
             pas = preal
         else:
             pas = i['PassaggiRT']
@@ -124,15 +123,8 @@ def gttorari_stop_line(stop, line):
         return data, stop
 
 
-def read_csv(file_path):
-    with open(file_path, 'r') as infile:
-        reader = csv.reader(infile)
-        return list(reader)
-
-
-def NameStop(stop, data):
-    for row in data:
-        if row[0] == str(stop):
-            return row[1]
-
-
+def NameStop(stop, df):
+    result = df[df.iloc[:, 0].astype(str) == str(stop)]
+    if not result.empty:
+        return result.iloc[0, 1]
+    return None
