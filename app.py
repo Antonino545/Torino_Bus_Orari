@@ -1,8 +1,9 @@
+import pandas as pd
 from flask import Flask, render_template
 
 import gttorari
 
-global stopsdata
+stopsdata = pd.read_csv("Resources/NewStop.csv")
 app = Flask(__name__)
 
 
@@ -77,13 +78,6 @@ def get_linea_web(fermata, linea):
     except Exception as err:
         print(err)
         return render_template('error.html')
-
-
-@app.before_request
-def before_request():
-    global stopsdata
-    stopsdata = gttorari.read_csv("Resources/NewStop.csv")
-    print("dati fermate caricati")
 
 
 if __name__ == '__main__':
