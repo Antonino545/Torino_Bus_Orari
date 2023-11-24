@@ -6,7 +6,7 @@ def api_data_json(url):
     try:
         response = requests.get(url, timeout=timeout)
         response.raise_for_status()
-        print(f'errore{response.status_code}'
+        print(f'errore{response.status_code}')
     except requests.exceptions.RequestException as err:
         print(err)
         return f"Errore: Impossibile ottenere i dati dall'API ({err})"
