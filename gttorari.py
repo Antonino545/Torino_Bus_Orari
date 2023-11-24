@@ -56,7 +56,6 @@ def formatta_orario(input_string):
 def gttorari_stop(stop):
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
     data = api_data(url)
-    print(data)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data, stop
     stops = []
