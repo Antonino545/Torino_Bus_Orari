@@ -11,22 +11,6 @@ def next_pass(pas):
     return nextpass
 
 
-def printwithoudef(data):
-    var = ""
-    if data == "Errore: Fermata non trovata o sito non raggiungibile":
-        return data
-    for bus_line, pas, nextpass in data:
-        var += "Linea: " + bus_line + " <br>"
-        var += "Passaggi: " + pas + "<br>"
-        if nextpass == "Non disponibile":
-            var += "Prossimo passaggio: Non disponibile <br>"
-        elif int(nextpass) <= 1:
-            var += "Prossimo passaggio: In arrivo" + "<br>"
-        else:
-            var += "Prossimo passaggio: " + str(nextpass) + " minuti" + "<br>"
-    return var
-
-
 def printout(data):
     var = ""
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
@@ -41,15 +25,6 @@ def printout(data):
         else:
             var += "Prossimo passaggio: " + str(nextpass) + " minuti" + "<br>"
     return var
-
-
-def formatta_orario(input_string):
-    result = ''
-    for i in range(0, len(input_string), 4):
-        result += input_string[i:i + 2] + ':' + input_string[i + 2:i + 4] + ' '
-    # Rimuovi lo spazio in eccesso alla fine
-    result = result[:-1]
-    return result
 
 
 def gttorari_stop(stop):
@@ -71,6 +46,7 @@ def gttorari_stop(stop):
         stops.append((i['Linea'], pas, i['Direzione'], nextpass))
         preal = ""
     return stops, stop
+
 
 def api_data(url):
     timeout = 5
@@ -98,6 +74,3 @@ def NameStop(stop, df):
     if not result.empty:
         return result.iloc[0, 1]
     return None
-
-
-
