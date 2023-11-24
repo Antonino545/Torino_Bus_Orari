@@ -1,6 +1,7 @@
 import datetime
 import pytz
-import requests
+
+from gtt.extra import api_data_json
 
 
 def next_pass(pas):
@@ -29,13 +30,16 @@ def printout(data):
 
 def gttorari_stop(stop):
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
-    data = api_data(url)
+    data = api_data_json(url)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data, stop
     stops = []
+    if str(data) == "[{'PassaggiRT': [], 'PassaggiPR': []}]":
+        return "Fermata non trovata o sito non raggiungibile", stop
     pas = ""
+
     for i in data:
-        if i['PassaggiRT'] == []:
+        if not i['PassaggiRT']:
             for passaggi in i["PassaggiPR"]:
                 pas = pas + str(passaggi) + " "
             nextpass = next_pass(i["PassaggiPR"][0])
@@ -48,17 +52,6 @@ def gttorari_stop(stop):
     return stops, stop
 
 
-def api_data(url):
-    timeout = 5
-    try:
-        response = requests.get(url, timeout=timeout)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as err:
-        print(err)
-        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
-    return response.json()
-
-
 def gttorari_stop_line(stop, line):
     line = str(line)
     data, stop = gttorari_stop(stop)
@@ -67,10 +60,3 @@ def gttorari_stop_line(stop, line):
     else:
         data = [x for x in data if x[0] == line]
         return data, stop
-
-
-def NameStop(stop, df):
-    result = df[df.iloc[:, 0].astype(str) == str(stop)]
-    if not result.empty:
-        return result.iloc[0, 1]
-    return None

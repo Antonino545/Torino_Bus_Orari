@@ -1,7 +1,6 @@
 import pandas as pd
 from flask import Flask, render_template
-
-import gttorari
+from gtt import gttorari, extra
 
 stopsdata = pd.read_csv("Resources/NewStop.csv")
 app = Flask(__name__)
@@ -36,7 +35,7 @@ def error():
 def get_fermata(fermata):
     if stopsdata._get_axis(0).__contains__(fermata):
         data, stop = gttorari.gttorari_stop(597)
-        stop = gttorari.NameStop(stop, stopsdata)
+        stop = extra.NameStop(stop, stopsdata)
         data = str(gttorari.printout(data))
         string = "Fermata:" + str(stop) + "<br>"
         if (data != "Errore: Fermata non trovata o sito non raggiungibile"):
@@ -50,7 +49,7 @@ def get_stop_web(fermata):
     if stopsdata._get_axis(0).__contains__(fermata):
 
             data, stop = gttorari.gttorari_stop(fermata)
-            stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
+            stop = f"{stop}-{extra.NameStop(stop, stopsdata)}"
             return render_template('orari.html', data=data, stop=stop)
 
     else:
@@ -62,7 +61,7 @@ def get_linea_post(fermata, linea):
     if stopsdata._get_axis(0).__contains__(fermata):
         try:
             data, stop = gttorari.gttorari_stop_line(fermata, linea)
-            stop = gttorari.NameStop(stop, stopsdata)
+            stop = extra.NameStop(stop, stopsdata)
             gtt = gttorari.printout(data)
             string = "Fermata:" + stop + "<br>"
             if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
@@ -81,7 +80,7 @@ def get_linea_web(fermata, linea):
     if stopsdata._get_axis(0).__contains__(fermata):
         try:
             data, stop = gttorari.gttorari_stop_line(fermata, linea)
-            stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
+            stop = f"{stop}-{extra.NameStop(stop, stopsdata)}"
             return render_template('orari.html', data=data, stop=stop)
         except Exception as err:
             print(err)
