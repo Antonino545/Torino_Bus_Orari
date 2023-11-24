@@ -1,4 +1,5 @@
 import datetime
+from io import StringIO
 
 import pandas as pd
 import pytz
@@ -132,5 +133,16 @@ def NameStop(stop, df):
         return result.iloc[0, 1]
     return None
 
-stopsdata = pd.read_csv("Resources/NewStop.csv")
-print(stopsdata)
+def api_data_pandas(url):
+    timeout = 5
+    try:
+        response = requests.get(url, timeout=timeout)
+        response.raise_for_status()
+        json_io = StringIO(response.text)
+        df = pd.read_json(json_io)
+        return df
+    except requests.exceptions.RequestException as err:
+        print(err)
+        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
+
+
