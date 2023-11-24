@@ -34,51 +34,62 @@ def error():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    data, stop = gttorari.gttorari_stop(597)
-    stop = gttorari.NameStop(stop, stopsdata)
-    data = str(gttorari.printout(data))
-    string = "Fermata:" + str(stop) + "<br>"
-    if (data != "Errore: Fermata non trovata o sito non raggiungibile"):
-        return string + data
+    if stopsdata.__contains__(fermata):
+        data, stop = gttorari.gttorari_stop(597)
+        stop = gttorari.NameStop(stop, stopsdata)
+        data = str(gttorari.printout(data))
+        string = "Fermata:" + str(stop) + "<br>"
+        if (data != "Errore: Fermata non trovata o sito non raggiungibile"):
+            return string + data
+        else:
+            return data
 
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_stop_web(fermata):
-    try:
-        data, stop = gttorari.gttorari_stop(fermata)
-        stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
-        return render_template('orari.html', data=data, stop=stop)
-    except Exception as err:
-        print(err)
-
-        return render_template('error.html', error=err)
+    if stopsdata.__contains__(fermata):
+        try:
+            data, stop = gttorari.gttorari_stop(fermata)
+            stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
+            return render_template('orari.html', data=data, stop=stop)
+        except Exception as err:
+            print(err)
+            return render_template('error.html', error=err)
+    else:
+        return render_template('error.html', error="Fermata non trovata")
 
 
 @app.route('/fermata/<int:fermata>/<string:linea>', methods=['POST'])
 def get_linea_post(fermata, linea):
-    try:
-        data, stop = gttorari.gttorari_stop_line(fermata, linea)
-        stop = gttorari.NameStop(stop, stopsdata)
-        gtt = gttorari.printout(data)
-        string = "Fermata:" + stop + "<br>"
-        if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
-            return string + gtt
-        else:
-            return gtt
-    except Exception as err:
-        print(err)
-        return "Errore: Fermata non trovata o sito non raggiungibile" + str(err)
+    if stopsdata.__contains__(fermata):
+        try:
+            data, stop = gttorari.gttorari_stop_line(fermata, linea)
+            stop = gttorari.NameStop(stop, stopsdata)
+            gtt = gttorari.printout(data)
+            string = "Fermata:" + stop + "<br>"
+            if (gtt != "Errore: Fermata non trovata o sito non raggiungibile") and (gtt is not None):
+                return string + gtt
+            else:
+                return gtt
+        except Exception as err:
+            print(err)
+            return "Errore: Fermata non trovata o sito non raggiungibile" + str(err)
+    else:
+        return "Errore: Fermata non trovata o sito non raggiungibile"
 
 
 @app.route('/fermata/<int:fermata>/<string:linea>', methods=['GET'])
 def get_linea_web(fermata, linea):
-    try:
-        data, stop = gttorari.gttorari_stop_line(fermata, linea)
-        stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
-        return render_template('orari.html', data=data, stop=stop)
-    except Exception as err:
-        print(err)
-        return render_template('error.html', error=err)
+    if stopsdata.__contains__(fermata):
+        try:
+            data, stop = gttorari.gttorari_stop_line(fermata, linea)
+            stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
+            return render_template('orari.html', data=data, stop=stop)
+        except Exception as err:
+            print(err)
+            return render_template('error.html', error=err)
+    else:
+        return render_template('error.html', error="Fermata non trovata")
 
 
 
