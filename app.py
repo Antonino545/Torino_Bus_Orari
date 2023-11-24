@@ -48,13 +48,11 @@ def get_fermata(fermata):
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_stop_web(fermata):
     if stopsdata._get_axis(0).__contains__(fermata):
-        try:
+
             data, stop = gttorari.gttorari_stop(fermata)
             stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
             return render_template('orari.html', data=data, stop=stop)
-        except Exception as err:
-            print(err)
-            return render_template('error.html', error=err)
+
     else:
         return render_template('error.html', error="Fermata non trovata")
 
