@@ -37,7 +37,7 @@ def gttorari_stop(stop):
     if str(data) == "[{'PassaggiRT': [], 'PassaggiPR': []}]":
         return "Fermata non trovata o sito non raggiungibile", stop
     pas = ""
-
+    print(data)
     for i in data:
         if not i['PassaggiRT']:
             for passaggi in i["PassaggiPR"]:
