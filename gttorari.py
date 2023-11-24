@@ -56,20 +56,19 @@ def formatta_orario(input_string):
 def gttorari_stop(stop):
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
     data = api_data(url)
+    print(data)
+    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+        return data, stop
     stops = []
-    preal =""
+    pas = ""
     for i in data:
         if i['PassaggiRT'] == []:
-            nextpass = "Non disponibile"
             for passaggi in i["PassaggiPR"]:
-                preal = preal + str(passaggi)+" "
+                pas = pas + str(passaggi) + " "
             nextpass = next_pass(i["PassaggiPR"][0])
-            pas = preal
         else:
-            pas = i['PassaggiRT']
-            for passaggi in pas:
-                preal= preal + str(passaggi)+"* "
-            pas = preal
+            for passaggi in i['PassaggiRT']:
+                pas = pas + str(passaggi) + "* "
             nextpass = next_pass(i['PassaggiRT'][0])
         stops.append((i['Linea'], pas, i['Direzione'], nextpass))
         preal = ""
@@ -78,24 +77,27 @@ def gttorari_stop(stop):
 
 def gttorariAPI(stop):
     url = "https://gpa.madbob.org/query.php?stop=" + str(stop)
-    dati = api_data(url)
+    data = api_data(url)
+    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+        return data, stop
+
     orari_unificati = {}
 
-    for count, passaggio in enumerate(dati):
+    for count, passaggio in enumerate(data):
         if count > 4:
             break
 
-        linea = passaggio['line']
-        orario_dt = datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')
-        orario = orario_dt.strftime('%H:%M')
+        line = passaggio['line']
+        orario = (datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')).strftime('%H:%M')
+
         realtime = passaggio['realtime']
 
-        orari_unificati.setdefault(linea, {'orari': []})
+        orari_unificati.setdefault(line, {'orari': []})
 
         if realtime:
-            orari_unificati[linea]['orari'].append(orario + '*')
+            orari_unificati[line]['orari'].append(orario + '*')
         else:
-            orari_unificati[linea]['orari'].append(orario)
+            orari_unificati[line]['orari'].append(orario)
 
     risultato = [(linea, ' '.join(info['orari']).replace("*", ""), next_pass(' '.join(info['orari']).replace("*", "")))
                  for linea, info in orari_unificati.items()]
@@ -125,8 +127,9 @@ def gttorari_stop_line(stop, line):
 
 
 def NameStop(stop, df):
-
     result = df[df.iloc[:, 0].astype(str) == str(stop)]
     if not result.empty:
         return result.iloc[0, 1]
     return None
+
+
