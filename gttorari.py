@@ -44,7 +44,7 @@ def gttorari_stop(stop):
                 pas = pas + str(passaggi) + "* "
             nextpass = next_pass(i['PassaggiRT'][0])
         stops.append((i['Linea'], pas, i['Direzione'], nextpass))
-        preal = ""
+        pas = ""
     return stops, stop
 
 
