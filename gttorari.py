@@ -1,5 +1,6 @@
-import csv
 import datetime
+
+import pandas as pd
 import pytz
 import requests
 
@@ -131,4 +132,5 @@ def NameStop(stop, df):
         return result.iloc[0, 1]
     return None
 
-
+stopsdata = pd.read_csv("Resources/NewStop.csv")
+print(stopsdata)
