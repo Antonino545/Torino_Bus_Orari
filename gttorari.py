@@ -145,4 +145,19 @@ def api_data_pandas(url):
         print(err)
         return f"Errore: Impossibile ottenere i dati dall'API ({err})"
 
+def gttorari_stop_pandas(stop):
+    url = f"https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
+    data = api_data_pandas(url)
 
+    def process_row(row):
+        passaggi = row["PassaggiRT"] if row["PassaggiRT"] else row["PassaggiPR"]
+        pas = " ".join(str(passaggio) for passaggio in passaggi)
+        nextpass = next_pass(passaggi[0])
+        return pd.Series([row['Linea'], pas, row['Direzione'], nextpass])
+
+    # Applying the process_row function to each row
+    columns = ['Linea', 'Passaggi', 'Direzione', 'NextPass']
+    df = data.apply(lambda row: process_row(row), axis=1)
+    df.columns = columns
+
+    return df, stop
