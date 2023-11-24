@@ -1,7 +1,4 @@
 import datetime
-from io import StringIO
-
-import pandas as pd
 import pytz
 import requests
 
@@ -75,37 +72,6 @@ def gttorari_stop(stop):
         preal = ""
     return stops, stop
 
-
-def gttorariAPI(stop):
-    url = "https://gpa.madbob.org/query.php?stop=" + str(stop)
-    data = api_data(url)
-    if data == "Errore: Fermata non trovata o sito non raggiungibile":
-        return data, stop
-
-    orari_unificati = {}
-
-    for count, passaggio in enumerate(data):
-        if count > 4:
-            break
-
-        line = passaggio['line']
-        orario = (datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')).strftime('%H:%M')
-
-        realtime = passaggio['realtime']
-
-        orari_unificati.setdefault(line, {'orari': []})
-
-        if realtime:
-            orari_unificati[line]['orari'].append(orario + '*')
-        else:
-            orari_unificati[line]['orari'].append(orario)
-
-    risultato = [(linea, ' '.join(info['orari']).replace("*", ""), next_pass(' '.join(info['orari']).replace("*", "")))
-                 for linea, info in orari_unificati.items()]
-
-    return risultato, stop
-
-
 def api_data(url):
     timeout = 5
     try:
@@ -133,31 +99,5 @@ def NameStop(stop, df):
         return result.iloc[0, 1]
     return None
 
-def api_data_pandas(url):
-    timeout = 5
-    try:
-        response = requests.get(url, timeout=timeout)
-        response.raise_for_status()
-        json_io = StringIO(response.text)
-        df = pd.read_json(json_io)
-        return df
-    except requests.exceptions.RequestException as err:
-        print(err)
-        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
 
-def gttorari_stop_pandas(stop):
-    url = f"https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
-    data = api_data_pandas(url)
 
-    def process_row(row):
-        passaggi = row["PassaggiRT"] if row["PassaggiRT"] else row["PassaggiPR"]
-        pas = " ".join(str(passaggio) for passaggio in passaggi)
-        nextpass = next_pass(passaggi[0])
-        return pd.Series([row['Linea'], pas, row['Direzione'], nextpass])
-
-    # Applying the process_row function to each row
-    columns = ['Linea', 'Passaggi', 'Direzione', 'NextPass']
-    df = data.apply(lambda row: process_row(row), axis=1)
-    df.columns = columns
-
-    return df, stop
