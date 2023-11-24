@@ -1,7 +1,4 @@
 import datetime
-from io import StringIO
-
-import pandas as pd
 import pytz
 import requests
 
@@ -63,19 +60,17 @@ def gttorari_stop(stop):
     stops = []
     pas = ""
     for i in data:
-        if i["PassaggiRT"] == []:
+        if i['PassaggiRT'] == []:
             for passaggi in i["PassaggiPR"]:
                 pas = pas + str(passaggi) + " "
             nextpass = next_pass(i["PassaggiPR"][0])
         else:
-            for passaggi in i["PassaggiRT"]:
+            for passaggi in i['PassaggiRT']:
                 pas = pas + str(passaggi) + "* "
             nextpass = next_pass(i['PassaggiRT'][0])
         stops.append((i['Linea'], pas, i['Direzione'], nextpass))
         preal = ""
     return stops, stop
-
-
 
 def api_data(url):
     timeout = 5
@@ -103,4 +98,6 @@ def NameStop(stop, df):
     if not result.empty:
         return result.iloc[0, 1]
     return None
+
+
 
