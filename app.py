@@ -34,7 +34,7 @@ def error():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    if stopsdata.__contains__(fermata):
+    if stopsdata._get_axis(0).__contains__(fermata):
         data, stop = gttorari.gttorari_stop(597)
         stop = gttorari.NameStop(stop, stopsdata)
         data = str(gttorari.printout(data))
@@ -47,7 +47,7 @@ def get_fermata(fermata):
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
 def get_stop_web(fermata):
-    if stopsdata.__contains__(fermata):
+    if stopsdata._get_axis(0).__contains__(fermata):
         try:
             data, stop = gttorari.gttorari_stop(fermata)
             stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
@@ -61,7 +61,7 @@ def get_stop_web(fermata):
 
 @app.route('/fermata/<int:fermata>/<string:linea>', methods=['POST'])
 def get_linea_post(fermata, linea):
-    if stopsdata.__contains__(fermata):
+    if stopsdata._get_axis(0).__contains__(fermata):
         try:
             data, stop = gttorari.gttorari_stop_line(fermata, linea)
             stop = gttorari.NameStop(stop, stopsdata)
@@ -80,7 +80,7 @@ def get_linea_post(fermata, linea):
 
 @app.route('/fermata/<int:fermata>/<string:linea>', methods=['GET'])
 def get_linea_web(fermata, linea):
-    if stopsdata.__contains__(fermata):
+    if stopsdata._get_axis(0).__contains__(fermata):
         try:
             data, stop = gttorari.gttorari_stop_line(fermata, linea)
             stop = f"{stop}-{gttorari.NameStop(stop, stopsdata)}"
