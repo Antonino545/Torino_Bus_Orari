@@ -63,47 +63,18 @@ def gttorari_stop(stop):
     stops = []
     pas = ""
     for i in data:
-        if i['PassaggiRT'] == []:
+        if i["PassaggiRT"] == []:
             for passaggi in i["PassaggiPR"]:
                 pas = pas + str(passaggi) + " "
             nextpass = next_pass(i["PassaggiPR"][0])
         else:
-            for passaggi in i['PassaggiRT']:
+            for passaggi in i["PassaggiRT"]:
                 pas = pas + str(passaggi) + "* "
             nextpass = next_pass(i['PassaggiRT'][0])
         stops.append((i['Linea'], pas, i['Direzione'], nextpass))
         preal = ""
     return stops, stop
 
-
-def gttorariAPI(stop):
-    url = "https://gpa.madbob.org/query.php?stop=" + str(stop)
-    data = api_data(url)
-    if data == "Errore: Fermata non trovata o sito non raggiungibile":
-        return data, stop
-
-    orari_unificati = {}
-
-    for count, passaggio in enumerate(data):
-        if count > 4:
-            break
-
-        line = passaggio['line']
-        orario = (datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')).strftime('%H:%M')
-
-        realtime = passaggio['realtime']
-
-        orari_unificati.setdefault(line, {'orari': []})
-
-        if realtime:
-            orari_unificati[line]['orari'].append(orario + '*')
-        else:
-            orari_unificati[line]['orari'].append(orario)
-
-    risultato = [(linea, ' '.join(info['orari']).replace("*", ""), next_pass(' '.join(info['orari']).replace("*", "")))
-                 for linea, info in orari_unificati.items()]
-
-    return risultato, stop
 
 
 def api_data(url):
@@ -132,17 +103,4 @@ def NameStop(stop, df):
     if not result.empty:
         return result.iloc[0, 1]
     return None
-
-def api_data_pandas(url):
-    timeout = 5
-    try:
-        response = requests.get(url, timeout=timeout)
-        response.raise_for_status()
-        json_io = StringIO(response.text)
-        df = pd.read_json(json_io)
-        return df
-    except requests.exceptions.RequestException as err:
-        print(err)
-        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
-
 
