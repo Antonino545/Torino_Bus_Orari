@@ -1,3 +1,5 @@
+import os
+
 import requests
 
 
@@ -29,3 +31,15 @@ def NameStop(stop, df):
     if not result.empty:
         return result.iloc[0, 1]
     return None
+
+def writefile(file_path, data):
+    try:
+        if not os.path.exists(file_path):
+            with open(file_path, 'w') as file:
+                file.write(data)
+        else:
+            with open(file_path, 'a') as file:
+                file.write(data)
+    except Exception as e:
+        print(f"Errore nella scrittura del file : {e}")
+

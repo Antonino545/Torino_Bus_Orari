@@ -1,5 +1,8 @@
+import os
+
 from tqdm import tqdm
 
+from gtt import extra
 from gtt.extra import api_data_html
 from bs4 import BeautifulSoup
 
@@ -40,7 +43,7 @@ def routeline(url):
         if cols:
             link_percorso = cols[1].a['href']
             direzione = cols[1].a.text.strip()
-            data.append((direzione, link_percorso))
+            data.append((direzione, "https://www.gtt.to.it" + str(link_percorso)))
 
     return data
 
@@ -48,11 +51,52 @@ def routeline(url):
 def gttallline():
     data = gttallLinepage()
     routes = []
-
-    for line, link in tqdm(data, desc="ricerca dei link per le direzioni delle varie linee", total=len(data)):
+    for line, link in tqdm(data, desc="ricerca delle  fermata per le direzioni delle varie linee", total=len(data)):
         route_data = routeline(link)
-        routes.append(route_data)
+        for direzione, url in route_data:
+            routes.append((gttstopforline(url), direzione, line))
     return routes
 
 
-print(gttallline())
+def printout(data):
+    var = ""
+    if data == "Errore: Fermata non trovata o sito non raggiungibile" or data == "":
+        return data
+    for fermata, direction, line in data:
+        var += "Linea: " + str(line) + " (" + str(direction) + ")\n"
+        for stop, Nome, ub in fermata:
+            var += "Fermata: " + str(stop) + " -" + str(Nome) + " , "
+            var += "Ubicazione: " + str(ub) + "\n"
+    return var
+
+
+def gttstopforline(url):
+    html = api_data_html(url)
+    soup = BeautifulSoup(html, 'html.parser')
+    if soup.find("table"):
+        rows = soup.find("table").find_all("tr")
+    else:
+        print("La tabella non è presente")
+        return []
+
+    data = []
+    for row in rows:
+        cols = row.find_all('td')
+        if cols:
+            data.append((cols[0].a.text.strip(), cols[1].text.strip(), cols[2].text.strip()))
+    return data
+
+
+def wtitefile(file_path, data):
+    try:
+        if not os.path.exists(file_path):
+            with open(file_path, 'w') as file:
+                file.write(data)
+        else:
+            with open(file_path, 'a') as file:
+                file.write(data)
+    except Exception as e:
+        print(f"Errore nella scrittura del file : {e}")
+
+
+wtitefile("fermate.text", printout(gttallline()))
