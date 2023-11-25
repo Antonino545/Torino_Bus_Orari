@@ -14,7 +14,7 @@ def next_pass(pas):
 
 def printout(data):
     var = ""
-    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+    if data == "Errore: Fermata non trovata o sito non raggiungibile" or data == "":
         return data
     for bus_line, pas, direction, nextpass in data:
         var += "Linea: " + str(bus_line) + " (" + str(direction) + ")<br>"
@@ -31,11 +31,12 @@ def printout(data):
 def gttorari_stop(stop):
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
     data = api_data_json(url)
+    print(data)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data, stop
     stops = []
     if str(data) == "[{'PassaggiRT': [], 'PassaggiPR': []}]":
-        return "Fermata non trovata o sito non raggiungibile", stop
+        return "", stop
     pas = ""
     print(data)
     for i in data:
