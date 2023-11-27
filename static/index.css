@@ -3,8 +3,14 @@
     color: white;
 }
 body{
-    margin-top: 80px;
+    min-height: 100vh; /* Altezza minima del body pari al 100% dell'altezza del viewport */
+    display: flex;
+    flex-direction: column;
+
 }
 label{
     font-weight: bold;
+}
+.container-fluid{
+    flex: 1;
 }
