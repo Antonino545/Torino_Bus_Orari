@@ -59,14 +59,12 @@ def gttorari_stop(stop):
     """
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
     data = api_data_json(url)
-    print(data)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
         return data, stop
     stops = []
     if str(data) == "[{'PassaggiRT': [], 'PassaggiPR': []}]":
         return "", stop
     pas = ""
-    print(data)
     for i in data:
         if not i['PassaggiRT']:
             for passaggi in i["PassaggiPR"]:
