@@ -5,6 +5,15 @@ from gtt.extra import api_data_json
 
 
 def next_pass(pas):
+    """
+    This function calculates the time in minutes until the next bus pass.
+
+    Parameters:
+    pas (str): The time of the next bus pass in the format 'HH:MM'.
+
+    Returns:
+    int: The time in minutes until the next bus pass.
+    """
     hours, minutes = map(int, pas.split(' ')[0].split(':'))
     rome_timezone = pytz.timezone('Europe/Rome')  # Set the time zone to Rome
     now = datetime.datetime.now(rome_timezone)
@@ -13,6 +22,15 @@ def next_pass(pas):
 
 
 def printout(data):
+    """
+    This function formats the bus line data for output.
+
+    Parameters:
+    data (str): The bus line data.
+
+    Returns:
+    str: The formatted bus line data.
+    """
     var = ""
     if data == "Errore: Fermata non trovata o sito non raggiungibile" or data == "":
         return data
@@ -29,6 +47,16 @@ def printout(data):
 
 
 def gttorari_stop(stop):
+    """
+    This function retrieves the bus line data for a specific stop.
+
+    Parameters:
+    stop (str): The stop to retrieve the bus line data for.
+
+    Returns:
+    list: The bus line data for the stop.
+    str: The stop.
+    """
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
     data = api_data_json(url)
     print(data)
@@ -54,6 +82,17 @@ def gttorari_stop(stop):
 
 
 def gttorari_stop_line(stop, line):
+    """
+    This function retrieves the bus line data for a specific stop and line.
+
+    Parameters:
+    stop (str): The stop to retrieve the bus line data for.
+    line (str): The line to retrieve the bus line data for.
+
+    Returns:
+    list: The bus line data for the stop and line.
+    str: The stop.
+    """
     line = str(line)
     data, stop = gttorari_stop(stop)
     if data == "Errore: Fermata non trovata o sito non raggiungibile":
