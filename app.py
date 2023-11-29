@@ -33,15 +33,21 @@ def error():
 
 @app.route('/fermata/<int:fermata>', methods=['POST'])
 def get_fermata(fermata):
-    if stopsdata._get_axis(0).__contains__(fermata):
-        data, stop = gttorari.gttorari_stop(fermata)
-        stop = extra.NameStop(stop, stopsdata)
-        if (data != "Fermata non trovata o sito non raggiungibile"):
-            data = str(gttorari.printout(data))
-            string = "Fermata:" + str(stop) + "<br>"
-            return string + data
+    try:
+        if stopsdata._get_axis(0).__contains__(fermata):
+            data, stop = gttorari.gttorari_stop(fermata)
+            stop = extra.NameStop(stop, stopsdata)
+            if (data != "Fermata non trovata o sito non raggiungibile"):
+                data = str(gttorari.printout(data))
+                string = "Fermata:" + str(stop) + "<br>"
+                return string + data
+            else:
+                return data
         else:
-            return data
+            return "Errore: Fermata non trovata"
+    except Exception as err:
+        print(err)
+        return "Errore:" + str(err)
 
 
 @app.route('/fermata/<int:fermata>', methods=['GET'])
