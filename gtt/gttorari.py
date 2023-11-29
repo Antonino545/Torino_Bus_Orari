@@ -97,7 +97,7 @@ def gttorari_stop_line(stop, line):
     """
     line = str(line)
     data, stop = gttorari_stop(stop)
-    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+    if data.__contains__("Errore"):
         return data
     else:
         data = [x for x in data if x[0] == line]

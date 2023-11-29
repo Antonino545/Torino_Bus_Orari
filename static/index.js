@@ -14,3 +14,14 @@ function listener(e){
         window.location.href = "fermata/" + stopValue;
     }
 }
+async function avvisi() {
+    await axios.get('https://www.gtt.to.it/cms/index.php?option=com_gtt&view=avvisi&tmpl=raw&priorita=1').then(function (response) {
+            var avvisi = response.data;
+            var avvisiDiv = document.getElementById("avvisi");
+            avvisiDiv.innerHTML = avvisi;
+        }
+    ).catch(function (error) {
+        console.log(error);
+    });
+}
+

@@ -19,6 +19,7 @@ def api_data_json(url):
         response.raise_for_status()
     except requests.exceptions.RequestException as err:
         print(f"Errore API: {err}")
+
         return f"Errore: Impossibile ottenere i dati dall'API "
     return response.json()
 
