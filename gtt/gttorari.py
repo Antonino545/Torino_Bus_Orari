@@ -79,8 +79,7 @@ def gttorari_stop(stop):
             stops.append((i['Linea'], pas, i['Direzione'], nextpass))
             pas = ""
         return stops, stop
-    except Exception as err:
-        print(err)
+    except :
         return "Errore: Fermata non trovata o sito non raggiungibile", stop
 
 
