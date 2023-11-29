@@ -63,8 +63,8 @@ def gttorari_stop(stop):
         print(f"Errore: Fermata {stop} non trovata o sito non raggiungibile")
         return data, stop
     stops = []
-    if str(data) == "[{'PassaggiRT': [], 'PassaggiPR': []}]":
-        return "", stop
+    if data.__getitem__('PassaggiRT') == [] and data.__getitem__('PassaggiPR') == []:
+        return "Nessun Dato trovato", stop
     pas = ""
     try:
         for i in data:
