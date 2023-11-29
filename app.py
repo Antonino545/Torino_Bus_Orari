@@ -49,6 +49,8 @@ def get_stop_web(fermata):
     if stopsdata._get_axis(0).__contains__(fermata):
         data, stop = gttorari.gttorari_stop(fermata)
         stop = f"{stop}-{extra.NameStop(stop, stopsdata)}"
+        if data.__contains__("Errore"):
+            return render_template('error.html', error=data)
         return render_template('orari.html', data=data, stop=stop)
 
     else:
@@ -80,6 +82,8 @@ def get_linea_web(fermata, linea):
         try:
             data, stop = gttorari.gttorari_stop_line(fermata, linea)
             stop = f"{stop}-{extra.NameStop(stop, stopsdata)}"
+            if data.__contains__("Errore"):
+                return render_template('error.html', error=data)
             return render_template('orari.html', data=data, stop=stop)
         except Exception as err:
             print(err)

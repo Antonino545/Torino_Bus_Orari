@@ -59,24 +59,29 @@ def gttorari_stop(stop):
     """
     url = f" https://www.gtt.to.it/cms/index.php?option=com_gtt&task=palina.getTransitiOld&palina={stop}&bacino=U&realtime=true&get_param=value"
     data = api_data_json(url)
-    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+    if data.__contains__("Errore"):
+        print(f"Errore: Fermata {stop} non trovata o sito non raggiungibile")
         return data, stop
     stops = []
     if str(data) == "[{'PassaggiRT': [], 'PassaggiPR': []}]":
         return "", stop
     pas = ""
-    for i in data:
-        if not i['PassaggiRT']:
-            for passaggi in i["PassaggiPR"]:
-                pas = pas + str(passaggi) + " "
-            nextpass = next_pass(i["PassaggiPR"][0])
-        else:
-            for passaggi in i['PassaggiRT']:
-                pas = pas + str(passaggi) + "* "
-            nextpass = next_pass(i['PassaggiRT'][0])
-        stops.append((i['Linea'], pas, i['Direzione'], nextpass))
-        pas = ""
-    return stops, stop
+    try:
+        for i in data:
+            if not i['PassaggiRT']:
+                for passaggi in i["PassaggiPR"]:
+                    pas = pas + str(passaggi) + " "
+                nextpass = next_pass(i["PassaggiPR"][0])
+            else:
+                for passaggi in i['PassaggiRT']:
+                    pas = pas + str(passaggi) + "* "
+                nextpass = next_pass(i['PassaggiRT'][0])
+            stops.append((i['Linea'], pas, i['Direzione'], nextpass))
+            pas = ""
+        return stops, stop
+    except Exception as err:
+        print(err)
+        return "Errore: Fermata non trovata o sito non raggiungibile", stop
 
 
 def gttorari_stop_line(stop, line):
