@@ -69,8 +69,6 @@ def get_stop_web(fermata):
         stop = f"{stop}-{extra.NameStop(stop, stopsdata)}"
         if data.__contains__("Errore"):
             return render_template('error.html', error=data)
-        print(data)
-        print(stop)
         return render_template('orari.html', data=data, stop=stop)
     else:
         return render_template('error.html', error="Fermata non trovata")

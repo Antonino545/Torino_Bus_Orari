@@ -20,7 +20,7 @@ def api_data_json(url):
     except requests.exceptions.RequestException as err:
         print(f"Errore API: {err}")
 
-        return f"Errore: Impossibile ottenere i dati dall'API "
+        raise Exception(f"Errore: Impossibile ottenere i dati dall'API ({err})")
     return response.json()
 
 
@@ -41,7 +41,7 @@ def api_data_html(url):
         response.raise_for_status()
     except requests.exceptions.RequestException as err:
         print(err)
-        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
+        raise Exception(f"Errore: Impossibile ottenere i dati dall'API ({err})")
     return response.text
 
 
@@ -70,7 +70,7 @@ def api_data(url):
         response.raise_for_status()
     except requests.exceptions.RequestException as err:
         print(err)
-        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
+        raise Exception(f"Errore: Impossibile ottenere i dati dall'API ({err})")
     return response.json()
 
 
