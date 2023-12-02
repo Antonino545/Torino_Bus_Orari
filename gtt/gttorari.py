@@ -1,7 +1,7 @@
 import datetime
 import pytz
 
-from gtt.extra import api_data_json
+from gtt.extra import api_data_json, api_data
 
 
 def next_pass(pas):
@@ -64,23 +64,20 @@ def gttorari_stop(stop):
         return data, stop
     stops = []
     if data[0]['PassaggiRT'] == [] and data[0]['PassaggiPR'] == []:
-        return "Nessun Dato trovato", stop
+        raise Exception("Errore: Fermata non trovata o sito non raggiungibile")
     pas = ""
-    try:
-        for i in data:
-            if not i['PassaggiRT']:
-                for passaggi in i["PassaggiPR"]:
-                    pas = pas + str(passaggi) + " "
-                nextpass = next_pass(i["PassaggiPR"][0])
-            else:
-                for passaggi in i['PassaggiRT']:
-                    pas = pas + str(passaggi) + "* "
-                nextpass = next_pass(i['PassaggiRT'][0])
-            stops.append((i['Linea'], pas, i['Direzione'], nextpass))
-            pas = ""
-        return stops, stop
-    except:
-        return "Errore: Fermata non trovata o sito non raggiungibile", stop
+    for i in data:
+        if not i['PassaggiRT']:
+            for passaggi in i["PassaggiPR"]:
+                pas = pas + str(passaggi) + " "
+            nextpass = next_pass(i["PassaggiPR"][0])
+        else:
+            for passaggi in i['PassaggiRT']:
+                pas = pas + str(passaggi) + "* "
+            nextpass = next_pass(i['PassaggiRT'][0])
+        stops.append((i['Linea'], pas, i['Direzione'], nextpass))
+        pas = ""
+    return stops, stop
 
 
 def gttorari_stop_line(stop, line):
@@ -96,9 +93,47 @@ def gttorari_stop_line(stop, line):
     str: The stop.
     """
     line = str(line)
-    data, stop = gttorari_stop(stop)
+    try:
+        data, stop = gttorari_stop(stop)
+    except:
+        try:
+            data, stop = gttorariAPI(stop)
+        except Exception as err:
+            print(err)
+            return "Errore:" + str(err)
     if data.__contains__("Errore"):
         return data
     else:
         data = [x for x in data if x[0] == line]
         return data, stop
+
+
+def gttorariAPI(stop):
+    url = "https://gpa.madbob.org/query.php?stop=" + str(stop)
+    data = api_data(url)
+    if data == "Errore: Fermata non trovata o sito non raggiungibile":
+        return data, stop
+
+    orari_unificati = {}
+
+    for count, passaggio in enumerate(data):
+        if count > 4:
+            break
+
+        line = passaggio['line']
+        orario = (datetime.datetime.strptime(passaggio['hour'], '%H:%M:%S')).strftime('%H:%M')
+
+        realtime = passaggio['realtime']
+
+        orari_unificati.setdefault(line, {'orari': []})
+
+        if realtime:
+            orari_unificati[line]['orari'].append(orario + '*')
+        else:
+            orari_unificati[line]['orari'].append(orario)
+
+    risultato = [(linea, ' '.join(info['orari']).replace("*", ""), "Direzione non disponibile",
+                  next_pass(' '.join(info['orari']).replace("*", "")))
+                 for linea, info in orari_unificati.items()]
+
+    return risultato, stop

@@ -63,6 +63,17 @@ def NameStop(stop, df):
     return None
 
 
+def api_data(url):
+    timeout = 5
+    try:
+        response = requests.get(url, timeout=timeout)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as err:
+        print(err)
+        return f"Errore: Impossibile ottenere i dati dall'API ({err})"
+    return response.json()
+
+
 def writefile(file_path, data):
     """
     This function writes data to a file. If the file does not exist, it is created.
