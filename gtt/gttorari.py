@@ -132,7 +132,7 @@ def gttorariAPI(stop):
         else:
             orari_unificati[line]['orari'].append(orario)
 
-    risultato = [(linea, ' '.join(info['orari']).replace("*", ""), "Direzione non disponibile",
+    risultato = [(linea, ' '.join(info['orari']), "Direzione non disponibile",
                   next_pass(' '.join(info['orari']).replace("*", "")))
                  for linea, info in orari_unificati.items()]
 
