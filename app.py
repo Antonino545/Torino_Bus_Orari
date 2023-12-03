@@ -42,13 +42,13 @@ def get_fermata(fermata):
             except error as err:
                 print(error)
                 return "Errore:" + str(err)
-            stop = extra.NameStop(stop, stopsdata)
-            if data != "Fermata non trovata o sito non raggiungibile":
-                data = str(gttorari.printout(data))
-                string = "Fermata:" + str(stop) + "<br>"
-                return string + data
-            else:
-                return data
+        stop = extra.NameStop(stop, stopsdata)
+        if data != "Fermata non trovata o sito non raggiungibile":
+            data = str(gttorari.printout(data))
+            string = "Fermata:" + str(stop) + "<br>"
+            return string + data
+        else:
+            return data
     else:
         return "Errore: Fermata non trovata"
 
