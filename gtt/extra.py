@@ -19,7 +19,6 @@ def api_data_json(url):
         response.raise_for_status()
     except requests.exceptions.RequestException as err:
         print(f"Errore API: {err}")
-
         raise Exception(f"Errore: Impossibile ottenere i dati dall'API ({err})")
     return response.json()
 
@@ -61,17 +60,6 @@ def NameStop(stop, df):
     if not result.empty:
         return result.iloc[0, 1]
     return None
-
-
-def api_data(url):
-    timeout = 5
-    try:
-        response = requests.get(url, timeout=timeout)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as err:
-        print(err)
-        raise Exception(f"Errore: Impossibile ottenere i dati dall'API ({err})")
-    return response.json()
 
 
 def writefile(file_path, data):

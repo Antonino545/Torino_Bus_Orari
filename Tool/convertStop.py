@@ -1,5 +1,4 @@
 import csv
-import re
 
 # Funzione per rimuovere numeri, trattini e spazi dal terzo campo
 
@@ -10,7 +9,7 @@ output_file = '../Resources/NewStop.csv'
 
 # Colonne da eliminare
 columns_to_remove = ["stop_timezone", "wheelchair_boarding", "stop_lat", "stop_lon", "zone_id", "parent_station",
-                     "location_type", "stop_desc", "stop_url","stop_id"]
+                     "location_type", "stop_desc", "stop_url", "stop_id"]
 
 # Leggi il file di input e scrivi il file di output
 with open(input_file, 'r') as infile, open(output_file, 'w', newline='') as outfile:
