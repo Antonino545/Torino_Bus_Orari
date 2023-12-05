@@ -1,15 +1,14 @@
 import os
 
-from tqdm import tqdm
+import bs4
+import tqdm
 
-from gtt import extra
 from gtt.extra import api_data_html
-from bs4 import BeautifulSoup
 
 
 def gttallLinepage():
     html = api_data_html("https://www.gtt.to.it/cms/percorari/urbano")
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = bs4.BeautifulSoup(html, 'html.parser')
     rows = soup.find("table").find_all("tr")
     data = []
     for row in rows:
@@ -29,7 +28,7 @@ def gttallLinepage():
 
 def routeline(url):
     html = api_data_html(url)
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = bs4.BeautifulSoup(html, 'html.parser')
     if soup.find("table"):
         rows = soup.find("table").find_all("tr")
     else:
@@ -51,7 +50,7 @@ def routeline(url):
 def gttallline():
     data = gttallLinepage()
     routes = []
-    for line, link in tqdm(data, desc="ricerca delle  fermata per le direzioni delle varie linee", total=len(data)):
+    for line, link in tqdm.tqdm(data, desc="ricerca delle  fermata per le direzioni delle varie linee", total=len(data)):
         route_data = routeline(link)
         for direzione, url in route_data:
             routes.append((gttstopforline(url), direzione, line))
@@ -72,7 +71,7 @@ def printout(data):
 
 def gttstopforline(url):
     html = api_data_html(url)
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = bs4.BeautifulSoup(html, 'html.parser')
     if soup.find("table"):
         rows = soup.find("table").find_all("tr")
     else:

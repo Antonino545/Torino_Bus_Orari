@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="align-content-center">
-          <h2>Compila il form per ottenere i passaggi in fermata</h2>
-          <h4>Inserisci il numero della fermata e la linea o anche solo il numero della fermata </h4>
+        <h1>Benvenuto in BusOrari</h1>
+        <h2>Compila il form per ottenere i passaggi in fermata</h2>
+        <h5>Inserisci il numero della fermata e la linea o anche solo il numero della fermata </h5>
         <form id="stopForm" >
             <div class="form-group ">
                 <label for="stop">Inserisci numero di fermata</label>
@@ -12,9 +13,9 @@
                 <label for="line">Inserisci linea</label>
                 <input type="text" class="form-control" id="line" placeholder="Inserisci Linea">
             </div>
-            <p>Se si sta inserendo la linea 16 si deve inserire anche la circolale 16CD o 16CS</p>
+            <p>Se si sta inserendo la linea 16 si deve inserire anche la circolale 16CD o 16CS se non viene visualizzato nulla si provi con 16 CD o 16 CS</p>
 
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            <button type="submit" class="btn btn-primary ">Submit</button>
 
         </form>
     </div>

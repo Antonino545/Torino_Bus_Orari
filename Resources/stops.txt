@@ -7093,5 +7093,3 @@
 "7970","8164","Fermata 8164 - TORINO (ROCCAVIONE)","corso Grosseto / via Roccavione","45.10424","7.67637","0","http://www.gtt.to.it/cms/percorari/arrivi?option=com_gtt&view=palina&palina=8164","","","Europe/Rome","0"
 "4059","829","Fermata 829 - COLLEGNO (FERMI CAP)","COLLEGNO (FERMI)","45.07585","7.5915","0","http://www.gtt.to.it/cms/percorari/arrivi?option=com_gtt&view=palina&palina=829","","","Europe/Rome","0"
 "3908","93","Fermata 93 - TORINO (STRADELLA)","C. GROSSETO N 246","45.10547","7.66467","0","http://www.gtt.to.it/cms/percorari/arrivi?option=com_gtt&view=palina&palina=93","","","Europe/Rome","1"
-"116589","PORTANUOVA","STAZIONE PORTA NUOVA","","45.06283","7.678529999999999","","","1","","Europe/Rome",""
-"116590","PORTASUSA","STAZIONE PORTA SUSA","","45.070678","7.664319","","","1","","Europe/Rome",""
