@@ -2,3 +2,5 @@ requests>=2.32.2
 pytz>=2024.1
 pandas>=2.0.3
 flask>=3.0.3
+beautifulsoup4>=4.12.2
+tqdm>=4.66.4
