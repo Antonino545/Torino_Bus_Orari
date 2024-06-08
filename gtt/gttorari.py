@@ -31,7 +31,7 @@ def printout(data):
     if data == "Errore: Fermata non trovata o sito non raggiungibile" or data == "":
         return data
     return ''.join([
-                       f"Linea: {bus_line} ({direction})<br>Passaggi: {pas}<br>Prossimo passaggio: {'In arrivo' if int(nextpass) <= 1 else nextpass if nextpass != 'Non disponibile' else 'Non disponibile'}<br>"
+                       f"Linea: {bus_line} ({direction})<br>Passaggi: {pas}<br>Prossimo passaggio: {'In arrivo' if int(nextpass) <= 1 else f'{nextpass} minuti' if nextpass != 'Non disponibile' else 'Non disponibile'}<br>"
                        for bus_line, pas, direction, nextpass in data])
 
 
