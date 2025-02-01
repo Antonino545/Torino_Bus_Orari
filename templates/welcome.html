@@ -1,22 +1,112 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="align-content-center">
-        <h1>Benvenuto in BusOrari</h1>
-        <h2>Compila il form per ottenere i passaggi in fermata</h2>
-        <h5>Inserisci il numero della fermata e la linea o anche solo il numero della fermata </h5>
-        <form id="stopForm" >
-            <div class="form-group ">
-                <label for="stop">Inserisci numero di fermata</label>
-                <input type="number" class="form-control" id="stop" placeholder="Inserisci fermata">
-            </div>
-            <div class="form-group ">
-                <label for="line">Inserisci linea</label>
-                <input type="text" class="form-control" id="line" placeholder="Inserisci Linea">
-            </div>
-            <p>Se si sta inserendo la linea 16 si deve inserire anche la circolale 16CD o 16CS se non viene visualizzato nulla si provi con 16 CD o 16 CS</p>
+<div class="min-vh-100 bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
 
-            <button type="submit" class="btn btn-primary ">Submit</button>
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-header bg-primary text-white p-4 rounded-top-4">
+                        <h4 class="mb-0">
+                            <i class="bi bi-bus-front me-2"></i>
+                            Cerca i tuoi orari
+                        </h4>
+                    </div>
 
-        </form>
+                    <div class="card-body p-4">
+                        <form id="stopForm" class="needs-validation" novalidate>
+                            <!-- Stop Number Input -->
+                            <div class="mb-4">
+                                <label for="stop" class="form-label fw-bold">
+                                    <i class="bi bi-sign-stop me-2"></i>
+                                    Numero fermata
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light">
+                                        <i class="bi bi-123"></i>
+                                    </span>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="stop"
+                                           placeholder="Es. 1234"
+                                           required>
+                                </div>
+                                <div class="form-text">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Inserisci il numero che trovi sul cartello della fermata
+                                </div>
+                            </div>
+
+                            <!-- Bus Line Input -->
+                            <div class="mb-4">
+                                <label for="line" class="form-label fw-bold">
+                                    <i class="bi bi-truck-front me-2"></i>
+                                    Linea bus (opzionale)
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light">
+                                        <i class="bi bi-signpost-2"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="line"
+                                           placeholder="Es. 16, 16CD, 16CS">
+                                </div>
+                            </div>
+
+                            <!-- Info Alert for Line 16 -->
+                            <div class="alert alert-info border-0 rounded-3 shadow-sm mb-4" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-info-circle-fill fs-4 me-2"></i>
+                                    <div>
+                                        <strong>Nota per la linea 16:</strong>
+                                        <p class="mb-0 mt-1">Specifica la direzione della circolare:</p>
+                                        <ul class="mb-0 mt-1">
+                                            <li>16CD - Circolare Destra</li>
+                                            <li>16CS - Circolare Sinistra</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-3 shadow-sm">
+                                    <i class="bi bi-search me-2"></i>
+                                    Cerca orari
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
     </div>
+</div>
+
+<style>
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
+}
+</style>
 {% endblock content %}

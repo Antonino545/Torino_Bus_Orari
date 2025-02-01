@@ -1,39 +1,142 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="align-content-center">
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <!-- Header Section -->
+            <div class="card shadow-sm border-0 mb-4 bg-primary text-white rounded-4">
+                <div class="card-body p-4 text-center">
+                    <i class="bi bi-sign-stop-fill display-4 mb-2"></i>
+                    <h1 class="mb-2">Fermata {{ stop }}</h1>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <p class="mb-0">I passaggi contrassegnati con * sono in tempo reale</p>
 
-    <div class="table table-hover">
-        <div class="align-content-center">
+                    </div>
+                </div>
+            </div>
 
-            <h1>Fermata:{{ stop }}</h1>
-            <p>Se segnalato con * si tratta di arrivi in tempo reale</p>
-            <table class="table table-hover">
-                <tr>
-                    <th>Linea</th>
-                    <th>Passaggi</th>
-                    <th>Destinazione</th>
-                    <th>Prossimo passaggio in </th>
-                </tr>
-                {% for row in data %}
-                    <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>
-                            {%  if row[3] =="Non disponibile" %}
-                                Non disponibile
-                            {% elif row[3] <= 1 %}
-                                In arrivo
-                            {% else %}
-                                {{ row[3] }} minuti
-                            {% endif %}
+            <!-- Table Card -->
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="px-4 py-3" style="width: 15%">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-bus-front me-2"></i>
+                                            Linea
+                                        </div>
+                                    </th>
+                                    <th class="px-4 py-3" style="width: 20%">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-hourglass-split me-2"></i>
+                                            Prossimo arrivo
+                                        </div>
+                                    </th>
+                                    <th class="px-4 py-3" style="width: 30%">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-clock me-2"></i>
+                                            Passaggi
+                                        </div>
+                                    </th>
+                                    <th class="px-4 py-3" style="width: 35%">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-geo-alt me-2"></i>
+                                            Destinazione
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in data %}
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        <span class="badge bg-primary rounded-pill fs-6">{{ row[0] }}</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        {% if row[3] == "Non disponibile" %}
+                                        <span class="badge bg-secondary">
+                                            <i class="bi bi-dash-circle me-1"></i>
+                                            Non disponibile
+                                        </span>
+                                        {% elif row[3] <= 1 %}
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-lightning-charge me-1"></i>
+                                            In arrivo
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-info">
+                                            <i class="bi bi-clock-history me-1"></i>
+                                            {{ row[3] }} minuti
+                                        </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-3">{{ row[1] }}</td>
+                                    <td class="px-4 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-arrow-right me-2"></i>
+                                            {{ row[2] }}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+
         </div>
     </div>
-    </div>
-{% endblock content %}
+</div>
 
+<style>
+.table th {
+    font-weight: 600;
+    color: #495057;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.5em 1em;
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Ensure proper spacing with the fixed navbar */
+@media (min-width: 768px) {
+    .container-fluid {
+        padding-top: 1rem;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .badge {
+        padding: 0.4em 0.8em;
+        font-size: 0.9rem;
+    }
+
+    .table td, .table th {
+        padding: 0.75rem 0.5rem;
+    }
+}
+</style>
+{% endblock content %}

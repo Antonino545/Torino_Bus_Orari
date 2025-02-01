@@ -20,6 +20,9 @@ def orari_fermata():
 def chi_sono():
     return render_template('whoare.html')
 
+@app.route('/api')
+def api():
+    return render_template('api.html')
 
 @app.route('/shortcuts')
 def shortcuts():

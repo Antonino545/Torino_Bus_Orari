@@ -1,56 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TorinoBusOrari - Orari dei bus di Torino in tempo reale</title>
+
+    <!-- Bootstrap and Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+    <!-- Custom Resources -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 
-    <meta charset="UTF-8">
-    <title>OrariBus</title>
+    <style>
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #f5f5f5;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--secondary-color);
+        }
+
+        .navbar {
+            background-color: white;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-brand .h1 {
+            margin-bottom: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link p {
+            margin-bottom: 0;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        footer {
+            background-color: white;
+            margin-top: auto !important;
+            margin-bottom: 0 !important;
+            padding: 2rem 0 !important;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .footer-nav-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem 0;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body onload="init()">
-<nav class="navbar navbar-expand-md navbar-shrink navbar-light shadow ">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/"><p class="h1">OrariBus</p> </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/shortcuts"><p class="h5">Shortcuts</p></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/whoare"><p class="h5">Chi sono</p></a>
-                </li>
-            </ul>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-bus-front fs-2 text-primary"></i>
+                <p class="h1">TorinoBusOrari</p>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shortcuts">
+                            <p class="h5">
+                                <i class="bi bi-bookmark me-1"></i>
+                                Shortcuts
+                            </p>
+                        </a>
+                    </li>
+--> <li class="nav-item">
+                        <a class="nav-link" href="/api">
+                            <p class="h5">
+                                API
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/whoare">
+                            <p class="h5">
+                                <i class="bi bi-person me-1"></i>
+                                Chi sono
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<main role="main" class="container-fluid">
+    </nav>
 
-    {% block content %}{% endblock %}
+    <!-- Main Content -->
+    <main role="main" class="container">
+        {% block content %}{% endblock %}
+    </main>
 
-</main>
-<footer class="py-3 my-4">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item">
-            <a  class="nav-link px-2 text-muted" href="/shortcuts">Shortcuts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link px-2 text-muted"  href="/whoare">Chi sono</a>
-        </li>
-    </ul>
-    <p class="text-center text-muted">Questo è un sito web indipendente senza scopi di lucro con aggiornamenti aperiodici, che non è sponsorizzato, sostenuto o autorizzato dal Gruppo Torinese Trasporti.
-    </p>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-nav">
+                <a href="/" class="footer-nav-link">
+                    <i class="bi bi-house"></i>
+                    Home
+                </a>
 
+                <a href="/whoare" class="footer-nav-link">
+                    <i class="bi bi-person"></i>
+                    Chi sono
+                </a>
+            </div>
+            <p class="disclaimer">
+                TorinoBusOrari è un sito web indipendente senza scopi di lucro con aggiornamenti aperiodici.
+                Non è sponsorizzato, sostenuto o autorizzato dal Gruppo Torinese Trasporti.
+                Il servizio è fornito "così com'è" senza alcuna garanzia.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
-
